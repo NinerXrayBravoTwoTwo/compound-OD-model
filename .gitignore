@@ -1,0 +1,4 @@
+# Generated standalone distribution archives (rebuilt by sbin/regen-dist.sh / sbin/regen-dist.ps1)
+**/*-standalone.zip
+**/*-standalone.tar.gz
+**/*-standalone.tgz

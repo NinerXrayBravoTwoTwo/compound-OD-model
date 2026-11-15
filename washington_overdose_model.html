@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<!--
+  Copyright (C) 2026 Friends of Jillian England (AKA FOJE)
+
+  This program (this self-contained HTML document and embedded JavaScript)
+  is free software: you can redistribute it and/or modify it under the terms
+  of the GNU Affero General Public License as published by the Free Software
+  Foundation, either version 3 of the License, or (at your option) any later
+  version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+  SPDX-License-Identifier: AGPL-3.0-or-later
+
+  Official license document: https://www.gnu.org/licenses/agpl-3.0.html
+  Project LICENSE.txt and source: see the FOJE repository (README.md declares
+  GNU Affero General Public License v3.0 (AGPL-3.0) for the project).
+
+  This model is part of the FOJE campaign site / paid for by Friends of Jillian England.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can You Save 1,000 Lives? Bend the Curve • Washington State Overdose Deaths Interactive Policy Model</title>
+    <link rel="icon" href="data:,"> <!-- no favicon file needed (avoids a 404 when served) -->
+    <!-- Tailwind v3 CSS inlined below (self-contained, no production warning) -->
+    <!-- Local Chart.js to avoid third-party tracking prevention blocks -->
+    <script src="chart.umd.min.js"></script>
+    <script src="math-utils.js"></script>
+    <script src="overdose-data.js"></script>
+    <style>
+        *, :after, :before {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x:;
+            --tw-pan-y:;
+            --tw-pinch-zoom:;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position:;
+            --tw-gradient-via-position:;
+            --tw-gradient-to-position:;
+            --tw-ordinal:;
+            --tw-slashed-zero:;
+            --tw-numeric-figure:;
+            --tw-numeric-spacing:;
+            --tw-numeric-fraction:;
+            --tw-ring-inset:;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgba(59,130,246,.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur:;
+            --tw-brightness:;
+            --tw-contrast:;
+            --tw-grayscale:;
+            --tw-hue-rotate:;
+            --tw-invert:;
+            --tw-saturate:;
+            --tw-sepia:;
+            --tw-drop-shadow:;
+            --tw-backdrop-blur:;
+            --tw-backdrop-brightness:;
+            --tw-backdrop-contrast:;
+            --tw-backdrop-grayscale:;
+            --tw-backdrop-hue-rotate:;
+            --tw-backdrop-invert:;
+            --tw-backdrop-opacity:;
+            --tw-backdrop-saturate:;
+            --tw-backdrop-sepia:;
+            --tw-contain-size:;
+            --tw-contain-layout:;
+            --tw-contain-paint:;
+            --tw-contain-style:
+        }
+
+        ::backdrop {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x:;
+            --tw-pan-y:;
+            --tw-pinch-zoom:;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position:;
+            --tw-gradient-via-position:;
+            --tw-gradient-to-position:;
+            --tw-ordinal:;
+            --tw-slashed-zero:;
+            --tw-numeric-figure:;
+            --tw-numeric-spacing:;
+            --tw-numeric-fraction:;
+            --tw-ring-inset:;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgba(59,130,246,.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur:;
+            --tw-brightness:;
+            --tw-contrast:;
+            --tw-grayscale:;
+            --tw-hue-rotate:;
+            --tw-invert:;
+            --tw-saturate:;
+            --tw-sepia:;
+            --tw-drop-shadow:;
+            --tw-backdrop-blur:;
+            --tw-backdrop-brightness:;
+            --tw-backdrop-contrast:;
+            --tw-backdrop-grayscale:;
+            --tw-backdrop-hue-rotate:;
+            --tw-backdrop-invert:;
+            --tw-backdrop-opacity:;
+            --tw-backdrop-saturate:;
+            --tw-backdrop-sepia:;
+            --tw-contain-size:;
+            --tw-contain-layout:;
+            --tw-contain-paint:;
+            --tw-contain-style:
+        }
+        /*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/
+
+        *, :after, :before {
+            border: 0 solid #e5e7eb;
+            box-sizing: border-box
+        }
+
+        :after, :before {
+            --tw-content: ""
+        }
+
+        :host, html {
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            font-family: ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-feature-settings: normal;
+            font-variation-settings: normal;
+            -moz-tab-size: 4;
+            -o-tab-size: 4;
+            tab-size: 4;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        body {
+            line-height: inherit;
+            margin: 0
+        }
+
+        hr {
+            border-top-width: 1px;
+            color: inherit;
+            height: 0
+        }
+
+        abbr:where([title]) {
+            -webkit-text-decoration: underline dotted;
+            text-decoration: underline dotted
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-size: inherit;
+            font-weight: inherit
+        }
+
+        a {
+            color: inherit;
+            text-decoration: inherit
+        }
+
+        b, strong {
+            font-weight: bolder
+        }
+
+        code, kbd, pre, samp {
+            font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+            font-feature-settings: normal;
+            font-size: 1em;
+            font-variation-settings: normal
+        }
+
+        small {
+            font-size: 80%
+        }
+
+        sub, sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        table {
+            border-collapse: collapse;
+            border-color: inherit;
+            text-indent: 0
+        }
+
+        button, input, optgroup, select, textarea {
+            color: inherit;
+            font-family: inherit;
+            font-feature-settings: inherit;
+            font-size: 100%;
+            font-variation-settings: inherit;
+            font-weight: inherit;
+            letter-spacing: inherit;
+            line-height: inherit;
+            margin: 0;
+            padding: 0
+        }
+
+        button, select {
+            text-transform: none
+        }
+
+        button, input:where([type=button]), input:where([type=reset]), input:where([type=submit]) {
+            -webkit-appearance: button;
+            background-color: transparent;
+            background-image: none
+        }
+
+        :-moz-focusring {
+            outline: auto
+        }
+
+        :-moz-ui-invalid {
+            box-shadow: none
+        }
+
+        progress {
+            vertical-align: baseline
+        }
+
+        ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+            height: auto
+        }
+
+        [type=search] {
+            -webkit-appearance: textfield;
+            outline-offset: -2px
+        }
+
+        ::-webkit-search-decoration {
+            -webkit-appearance: none
+        }
+
+        ::-webkit-file-upload-button {
+            -webkit-appearance: button;
+            font: inherit
+        }
+
+        summary {
+            display: list-item
+        }
+
+        blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
+            margin: 0
+        }
+
+        fieldset {
+            margin: 0
+        }
+
+        fieldset, legend {
+            padding: 0
+        }
+
+        menu, ol, ul {
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        dialog {
+            padding: 0
+        }
+
+        textarea {
+            resize: vertical
+        }
+
+            input::-moz-placeholder, textarea::-moz-placeholder {
+                color: #9ca3af;
+                opacity: 1
+            }
+
+            input::placeholder, textarea::placeholder {
+                color: #9ca3af;
+                opacity: 1
+            }
+
+        [role=button], button {
+            cursor: pointer
+        }
+
+        :disabled {
+            cursor: default
+        }
+
+        audio, canvas, embed, iframe, img, object, svg, video {
+            display: block;
+            vertical-align: middle
+        }
+
+        img, video {
+            height: auto;
+            max-width: 100%
+        }
+
+        [hidden]:where(:not([hidden=until-found])) {
+            display: none
+        }
+
+        .\!container {
+            width: 100% !important
+        }
+
+        .container {
+            width: 100%
+        }
+
+        @media (min-width:640px) {
+            .\!container {
+                max-width: 640px !important
+            }
+
+            .container {
+                max-width: 640px
+            }
+        }
+
+        @media (min-width:768px) {
+            .\!container {
+                max-width: 768px !important
+            }
+
+            .container {
+                max-width: 768px
+            }
+        }
+
+        @media (min-width:1024px) {
+            .\!container {
+                max-width: 1024px !important
+            }
+
+            .container {
+                max-width: 1024px
+            }
+        }
+
+        @media (min-width:1280px) {
+            .\!container {
+                max-width: 1280px !important
+            }
+
+            .container {
+                max-width: 1280px
+            }
+        }
+
+        @media (min-width:1536px) {
+            .\!container {
+                max-width: 1536px !important
+            }
+
+            .container {
+                max-width: 1536px
+            }
+        }
+
+        .sticky {
+            position: sticky
+        }
+
+        .top-0 {
+            top: 0
+        }
+
+        .top-8 {
+            top: 2rem
+        }
+
+        .z-10 {
+            z-index: 10
+        }
+
+        .col-span-5 {
+            grid-column: span 5/span 5
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .mb-1 {
+            margin-bottom: .25rem
+        }
+
+        .mb-2 {
+            margin-bottom: .5rem
+        }
+
+        .mb-3 {
+            margin-bottom: .75rem
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem
+        }
+
+        .mt-0\.5 {
+            margin-top: .125rem
+        }
+
+        .mt-1 {
+            margin-top: .25rem
+        }
+
+        .mt-1\.5 {
+            margin-top: .375rem
+        }
+
+        .mt-6 {
+            margin-top: 1.5rem
+        }
+
+        .mt-8 {
+            margin-top: 2rem
+        }
+
+        .flex {
+            display: flex
+        }
+
+        .inline-flex {
+            display: inline-flex
+        }
+
+        .table {
+            display: table
+        }
+
+        .grid {
+            display: grid
+        }
+
+        .h-0\.5 {
+            height: .125rem
+        }
+
+        .h-10 {
+            height: 2.5rem
+        }
+
+        .h-2\.5 {
+            height: .625rem
+        }
+
+        .h-4 {
+            height: 1rem
+        }
+
+        .h-5 {
+            height: 1.25rem
+        }
+
+        .h-6 {
+            height: 1.5rem
+        }
+
+        .max-h-\[210px\] {
+            max-height: 210px
+        }
+
+        .w-10 {
+            width: 2.5rem
+        }
+
+        .w-2\.5 {
+            width: .625rem
+        }
+
+        .w-3 {
+            width: .75rem
+        }
+
+        .w-4 {
+            width: 1rem
+        }
+
+        .w-5 {
+            width: 1.25rem
+        }
+
+        .w-6 {
+            width: 1.5rem
+        }
+
+        .w-full {
+            width: 100%
+        }
+
+        .max-w-6xl {
+            max-width: 72rem
+        }
+
+        .flex-1 {
+            flex: 1 1 0%
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: .5
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite
+        }
+
+        .grid-cols-1 {
+            grid-template-columns: repeat(1,minmax(0,1fr))
+        }
+
+        .grid-cols-12 {
+            grid-template-columns: repeat(12,minmax(0,1fr))
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2,minmax(0,1fr))
+        }
+
+
+        .flex-col1 {
+            margin-bottom: 4px;
+            flex-direction: column
+        }
+
+        .flex-col2 {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            margin-top: 2px;
+            margin-bottom: 4px;
+            flex-direction: column
+        }
+
+        .flex-col3 {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            margin-top: 2px;
+            margin-bottom: 4px;
+            flex-direction: column
+        }
+
+        .items-center {
+            align-items: center
+        }
+
+        .justify-center {
+            justify-content: center
+        }
+
+        .justify-between {
+            justify-content: space-between
+        }
+
+        .gap-4 {
+            gap: 1rem
+        }
+
+        .gap-6 {
+            gap: 1.5rem
+        }
+
+        .gap-8 {
+            gap: 2rem
+        }
+
+        .gap-x-1\.5 {
+            -moz-column-gap: .375rem;
+            column-gap: .375rem
+        }
+
+        .gap-x-2 {
+            -moz-column-gap: .5rem;
+            column-gap: .5rem
+        }
+
+        .gap-x-3 {
+            -moz-column-gap: .75rem;
+            column-gap: .75rem
+        }
+
+        .gap-x-4 {
+            -moz-column-gap: 1rem;
+            column-gap: 1rem
+        }
+
+        .divide-y > :not([hidden]) ~ :not([hidden]) {
+            --tw-divide-y-reverse: 0;
+            border-bottom-width: calc(1px*var(--tw-divide-y-reverse));
+            border-top-width: calc(1px*(1 - var(--tw-divide-y-reverse)))
+        }
+
+        .divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
+            --tw-divide-opacity: 1;
+            border-color: rgb(30 41 59/var(--tw-divide-opacity,1))
+        }
+
+        .overflow-auto {
+            overflow: auto
+        }
+
+        .overflow-hidden {
+            overflow: hidden
+        }
+
+        .rounded-2xl {
+            border-radius: 1rem
+        }
+
+        .rounded-3xl {
+            border-radius: 1.5rem
+        }
+
+        .rounded-full {
+            border-radius: 9999px
+        }
+
+        .border {
+            border-width: 1px
+        }
+
+        .border-b {
+            border-bottom-width: 1px
+        }
+
+        .border-t {
+            border-top-width: 1px
+        }
+
+        .border-emerald-900\/60 {
+            border-color: rgba(6,78,59,.6)
+        }
+
+        .border-slate-700 {
+            --tw-border-opacity: 1;
+            border-color: rgb(51 65 85/var(--tw-border-opacity,1))
+        }
+
+        .border-slate-800 {
+            --tw-border-opacity: 1;
+            border-color: rgb(30 41 59/var(--tw-border-opacity,1))
+        }
+
+        .bg-emerald-400 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(52 211 153/var(--tw-bg-opacity,1))
+        }
+
+        .bg-red-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(220 38 38/var(--tw-bg-opacity,1))
+        }
+
+        .bg-slate-400 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(148 163 184/var(--tw-bg-opacity,1))
+        }
+
+        .bg-slate-800 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(30 41 59/var(--tw-bg-opacity,1))
+        }
+
+        .bg-slate-900 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(15 23 42/var(--tw-bg-opacity,1))
+        }
+
+        .bg-slate-900\/70 {
+            background-color: rgba(15,23,42,.7)
+        }
+
+        .bg-slate-950 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(2 6 23/var(--tw-bg-opacity,1))
+        }
+
+        .bg-white {
+            --tw-bg-opacity: 1;
+            background-color: rgb(255 255 255/var(--tw-bg-opacity,1))
+        }
+
+        .p-4 {
+            padding: 1rem
+        }
+
+        .p-5 {
+            padding: 1.25rem
+        }
+
+        .p-6 {
+            padding: 1.5rem
+        }
+
+        .p-7 {
+            padding: 1.75rem
+        }
+
+        .px-0\.5 {
+            padding-left: .125rem;
+            padding-right: .125rem
+        }
+
+        .px-1 {
+            padding-left: .25rem;
+            padding-right: .25rem
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem
+        }
+
+        .py-1\.5 {
+            padding-bottom: .375rem;
+            padding-top: .375rem
+        }
+
+        .py-2\.5 {
+            padding-bottom: .625rem;
+            padding-top: .625rem
+        }
+
+        .py-3 {
+            padding-bottom: .75rem;
+            padding-top: .75rem
+        }
+
+        .py-8 {
+            padding-bottom: 2rem;
+            padding-top: 2rem
+        }
+
+        .pb-3 {
+            padding-bottom: .75rem
+        }
+
+        .pl-6 {
+            padding-left: 1.5rem
+        }
+
+        .pr-4 {
+            padding-right: 1rem
+        }
+
+        .pr-6 {
+            padding-right: 1.5rem
+        }
+
+        .pt-3 {
+            padding-top: .75rem
+        }
+
+        .pt-4 {
+            padding-top: 1rem
+        }
+
+        .pt-5 {
+            padding-top: 1.25rem
+        }
+
+        .text-left {
+            text-align: left
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .text-right {
+            text-align: right
+        }
+
+        .font-mono {
+            font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem
+        }
+
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem
+        }
+
+        .text-4xl {
+            font-size: 2.25rem;
+            line-height: 2.5rem
+        }
+
+        .text-\[10px\] {
+            font-size: 10px
+        }
+
+        .text-\[9px\] {
+            font-size: 9px
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem
+        }
+
+        .text-sm {
+            font-size: .875rem;
+            line-height: 1.25rem
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem
+        }
+
+        .text-xs {
+            font-size: .75rem;
+            line-height: 1rem
+        }
+
+        /* "Paid for by" legal notice: at least 12px, high contrast (slate-300 on slate-950 is about 13:1) */
+        .legal-text {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #cbd5e1;
+        }
+        .legal-text a { color: #e2e8f0; }
+        .legal-text a:hover { color: #ffffff; }
+
+        .font-medium {
+            font-weight: 500
+        }
+
+        .font-normal {
+            font-weight: 400
+        }
+
+        .font-semibold {
+            font-weight: 600
+        }
+
+        .uppercase {
+            text-transform: uppercase
+        }
+
+        .tabular-nums {
+            --tw-numeric-spacing: tabular-nums;
+            font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction)
+        }
+
+        .leading-snug {
+            line-height: 1.375
+        }
+
+        .tracking-\[1\.5px\] {
+            letter-spacing: 1.5px
+        }
+
+        .tracking-tighter {
+            letter-spacing: -.05em
+        }
+
+        .tracking-widest {
+            letter-spacing: .1em
+        }
+
+        .text-amber-300 {
+            --tw-text-opacity: 1;
+            color: rgb(252 211 77/var(--tw-text-opacity,1))
+        }
+
+        .text-amber-400 {
+            --tw-text-opacity: 1;
+            color: rgb(251 191 36/var(--tw-text-opacity,1))
+        }
+
+        .text-emerald-300 {
+            --tw-text-opacity: 1;
+            color: rgb(110 231 183/var(--tw-text-opacity,1))
+        }
+
+        .text-emerald-300\/70 {
+            color: rgba(110,231,183,.7)
+        }
+
+        .text-emerald-300\/80 {
+            color: rgba(110,231,183,.8)
+        }
+
+        .text-emerald-400 {
+            --tw-text-opacity: 1;
+            color: rgb(52 211 153/var(--tw-text-opacity,1))
+        }
+
+        .text-emerald-500 {
+            --tw-text-opacity: 1;
+            color: rgb(16 185 129/var(--tw-text-opacity,1))
+        }
+
+        .text-red-300 {
+            --tw-text-opacity: 1;
+            color: rgb(252 165 165/var(--tw-text-opacity,1))
+        }
+
+        .text-red-400 {
+            --tw-text-opacity: 1;
+            color: rgb(248 113 113/var(--tw-text-opacity,1))
+        }
+
+        .text-slate-100 {
+            --tw-text-opacity: 1;
+            color: #fff;
+        }
+
+        .text-slate-200 {
+            --tw-text-opacity: 1;
+            color: rgb(226 232 240/var(--tw-text-opacity,1))
+        }
+
+        .text-slate-300 {
+            --tw-text-opacity: 1;
+            color: rgb(203 213 225/var(--tw-text-opacity,1))
+        }
+
+        .text-slate-400 {
+            --tw-text-opacity: 1;
+            color: rgb(148 163 184/var(--tw-text-opacity,1))
+        }
+
+        .text-slate-500 {
+            --tw-text-opacity: 1;
+            color: rgb(100 116 139/var(--tw-text-opacity,1))
+        }
+
+        .text-slate-950 {
+            --tw-text-opacity: 1;
+            color: rgb(2 6 23/var(--tw-text-opacity,1))
+        }
+
+        .text-white {
+            --tw-text-opacity: 1;
+            color: rgb(255 255 255/var(--tw-text-opacity,1))
+        }
+
+        .accent-amber-500 {
+            accent-color: #f59e0b
+        }
+
+        .accent-red-500 {
+            accent-color: #ef4444
+        }
+
+        .accent-slate-400 {
+            accent-color: #94a3b8
+        }
+
+        .transition {
+            transition-duration: .15s;
+            transition-property: color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;
+            transition-property: color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+            transition-property: color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;
+            transition-timing-function: cubic-bezier(.4,0,.2,1)
+        }
+
+        .transition-colors {
+            transition-duration: .15s;
+            transition-property: color,background-color,border-color,text-decoration-color,fill,stroke;
+            transition-timing-function: cubic-bezier(.4,0,.2,1)
+        }
+
+        .hover\:bg-slate-100:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(241 245 249/var(--tw-bg-opacity,1))
+        }
+
+        .hover\:bg-slate-700:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(51 65 85/var(--tw-bg-opacity,1))
+        }
+
+        .active\:bg-slate-200:active {
+            --tw-bg-opacity: 1;
+            background-color: rgb(226 232 240/var(--tw-bg-opacity,1))
+        }
+
+        .active\:bg-slate-900:active {
+            --tw-bg-opacity: 1;
+            background-color: rgb(15 23 42/var(--tw-bg-opacity,1))
+        }
+
+        @media (min-width:640px) {
+            .sm\:grid-cols-2 {
+                grid-template-columns: repeat(2,minmax(0,1fr))
+            }
+
+            .sm\:grid-cols-3 {
+                grid-template-columns: repeat(3,minmax(0,1fr))
+            }
+        }
+
+        @media (min-width:768px) {
+            .md\:grid-cols-3 {
+                grid-template-columns: repeat(3,minmax(0,1fr))
+            }
+        }
+
+        @media (min-width:1024px) {
+            .lg\:col-span-5 {
+                grid-column: span 5/span 5
+            }
+
+            .lg\:col-span-7 {
+                grid-column: span 7/span 7
+            }
+
+            .lg\:grid-cols-12 {
+                grid-template-columns: repeat(12,minmax(0,1fr))
+            }
+        }
+
+        :root {
+            --primary: #0f172a;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+            font-weight: 600;
+        }
+
+        .slider-label {
+            font-weight: 600;
+            color: #cbd5e1; /* slate-300: readable on the slate-900 card */
+        }
+
+        .metric-value {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .section-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #f1f5f9; /* slate-100 (was #0f172a = invisible on the card) */
+            letter-spacing: -0.025em;
+        }
+
+        .policy-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .result-number {
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "ss02";
+        }
+
+        canvas {
+            max-height: 320px;
+        }
+
+        .data-table td, .data-table th {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Improvements for iframe embedding (self-contained model) */
+        body.iframe-embedded {
+            background: #0f172a;
+        }
+
+            body.iframe-embedded .max-w-6xl.mx-auto {
+                max-width: 100% !important;
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+                padding-top: 0.5rem !important;
+                padding-bottom: 0.5rem !important;
+            }
+
+            body.iframe-embedded .mb-8 {
+                margin-bottom: 0.75rem !important;
+            }
+
+            body.iframe-embedded .py-8 {
+                padding-top: 0.5rem !important;
+                padding-bottom: 0.5rem !important;
+            }
+
+            body.iframe-embedded h1 {
+                font-size: 1.5rem !important;
+                line-height: 1.2 !important;
+            }
+
+            body.iframe-embedded .text-lg {
+                font-size: 0.875rem !important;
+            }
+
+            body.iframe-embedded .flex.items-center.justify-between.mb-8 {
+                margin-bottom: 0.5rem !important;
+            }
+
+            body.iframe-embedded .inline-flex.items-center.gap-x-2.bg-slate-900 {
+                padding-top: 0.25rem !important;
+                padding-bottom: 0.25rem !important;
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+                font-size: 0.65rem !important;
+            }
+
+            body.iframe-embedded .bg-slate-900.border.border-slate-800.rounded-3xl.p-6 {
+                padding: 0.75rem !important;
+            }
+
+            body.iframe-embedded .section-header {
+                font-size: 0.95rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+            /* Tighter controls and sticky behavior inside iframe */
+            body.iframe-embedded .sticky.top-8 {
+                top: 0.25rem !important;
+            }
+
+            body.iframe-embedded .lg\:col-span-5 {
+                /* keep controls prominent but compact */
+            }
+
+            body.iframe-embedded .grid-cols-1.lg\:grid-cols-12 {
+                gap: 0.75rem !important;
+            }
+
+            body.iframe-embedded canvas {
+                max-height: 260px !important;
+            }
+
+            body.iframe-embedded .grid-cols-1.sm\:grid-cols-2.gap-4.mb-6 > div {
+                padding: 0.5rem !important;
+            }
+
+            body.iframe-embedded .grid-cols-1.sm\:grid-cols-2.gap-4.mb-6 .text-2xl {
+                font-size: 1.1rem !important;
+            }
+
+            /* Legal footer in embedded view */
+            body.iframe-embedded .legal-footer {
+                margin-top: 0.5rem !important;
+                font-size: 12px !important;   /* legal "Paid for by" notice: keep readable (>= 12px) */
+                line-height: 1.5 !important;
+                border-top-color: #334155 !important;
+            }
+
+        /* Compact note section (bigger font, more spacing for legibility) */
+        #note {
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.875rem; /* slightly bigger */
+            line-height: 1.5; /* more spacing between rows */
+            font-weight: 400 !important; /* normal weight, not 'yelling' bold so <strong> stands out */
+        }
+
+            #note ul {
+                list-style-type: disc !important;
+                padding-left: 1.25rem !important;
+                margin: 0.3rem 0 !important;
+            }
+
+            #note li {
+                margin-bottom: 0.15rem !important;
+            }
+
+            #note p {
+                margin-bottom: 0.5rem !important;
+                font-weight: 400 !important; /* ensure normal text weight */
+            }
+
+            /* Image limited to 80% of the width of the note card */
+            #note img {
+                max-width: 80% !important;
+                height: auto !important;
+                display: block !important;
+                margin: 0 auto !important;
+            }
+
+            #note h3 {
+                font-size: 0.875rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 0.25rem !important;
+            }
+
+            #note strong {
+                font-weight: 700 !important; /* make <strong> clearly bolder */
+            }
+
+            #note .small {
+                font-size: 0.75rem !important;
+            }
+
+            #note .text-muted {
+                color: #64748b !important; /* slate-500 for muted */
+            }
+        /* ---- Utilities used by the markup but missing from the purged Tailwind v3 build ---- */
+        .hidden { display: none }
+        .note-toggle-active { background-color: #334155; border-color: #f59e0b; color: #fcd34d }
+        .cursor-pointer { cursor: pointer }
+        .gap-2 { gap: .5rem }
+        .gap-x-6 { column-gap: 1.5rem }
+        .gap-y-1 { row-gap: .25rem }
+        .leading-tight { line-height: 1.25 }
+        .list-disc { list-style-type: disc }
+        .max-w-2xl { max-width: 42rem }
+        .mt-2 { margin-top: .5rem }
+        .mt-4 { margin-top: 1rem }
+        .overflow-x-auto { overflow-x: auto }
+        .p-3 { padding: .75rem }
+        .pl-4 { padding-left: 1rem }
+        .pr-3 { padding-right: .75rem }
+        .px-2 { padding-left: .5rem; padding-right: .5rem }
+        .px-3 { padding-left: .75rem; padding-right: .75rem }
+        .py-0\.5 { padding-top: .125rem; padding-bottom: .125rem }
+        .space-y-0\.5 > :not([hidden]) ~ :not([hidden]) { margin-top: .125rem }
+        .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem }
+        .underline { text-decoration-line: underline }
+        .border-slate-600 { border-color: #475569 }
+        .accent-amber-400 { accent-color: #fbbf24 }
+        .hover\:bg-slate-800:hover { background-color: #1e293b }
+        .hover\:text-amber-300:hover { color: #fcd34d }
+        .hover\:text-slate-300:hover { color: #cbd5e1 }
+        .bg-slate-800\/40 { background-color: rgba(30,41,59,.4) }
+        .font-sans { font-family: ui-sans-serif,system-ui,sans-serif }
+        .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem }
+        @media (min-width: 640px) {
+            .sm\:inline { display: inline }
+        }
+
+        /* ---- Model-specific helpers (replace former Bootstrap-only classes) ---- */
+        .img-responsive { max-width: 100%; height: auto }
+        .link-amber { color: #fbbf24; text-decoration: underline }
+        .link-amber:hover { color: #fcd34d }
+        .error-banner {
+            margin-bottom: 1.5rem;
+            padding: .875rem 1rem;
+            border: 1px solid #f87171;
+            border-radius: 1rem;
+            background: #450a0a;
+            color: #fecaca;
+            font-size: .875rem;
+            line-height: 1.4;
+        }
+        fieldset { min-width: 0 }
+        /* Narrow phones: keep the note card off the screen edges and avoid sideways scrolling */
+        @media (max-width: 720px) {
+            #note { margin-left: .75rem; margin-right: .75rem }
+        }
+        .chart-head, .chart-legend { flex-wrap: wrap; row-gap: .375rem }
+        @media (max-width: 400px) {
+            .max-w-6xl.mx-auto.px-6 { padding-left: 1rem; padding-right: 1rem }
+            .header-row { gap: .5rem }
+            .header-row h1 { font-size: 1.75rem; line-height: 2rem }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200">
+    <!-- WRAPPER -->
+    <div class="max-w-6xl mx-auto px-6 py-8">
+        <!-- Load problems (missing sibling files / JavaScript disabled) are reported here -->
+        <div id="load-error" class="hidden error-banner" role="alert"></div>
+        <noscript>
+            <div class="error-banner">
+                This interactive model needs JavaScript. Please allow JavaScript for this page (some browsers and script-blocking
+                extensions block it for files opened from disk), then reload. See README.md &rarr; Troubleshooting.
+            </div>
+        </noscript>
+
+        <!-- Header -->
+        <div class="header-row flex items-center justify-between mb-8">
+            <div>
+                <div class="flex items-center gap-x-3">
+                    <div class="w-10 h-10 bg-red-600 rounded-2xl flex items-center justify-center" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.25" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-4xl font-display tracking-tighter font-semibold text-white">Can You Save 1,000 Lives?</h1>
+                        <p class="text-lg text-slate-300">Bend the Curve · Washington Overdose Model</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="inline-flex items-center gap-x-2 bg-slate-900 border border-slate-800 rounded-3xl px-4 py-1.5 text-sm" aria-hidden="true">
+                    <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></div>
+                </div>
+                <button type="button" onclick="toggleNote()" data-note-toggle aria-controls="note" aria-expanded="false"
+                        class="inline-flex items-center gap-x-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-3xl px-3 py-1.5 text-xs text-slate-300 transition-colors"
+                        title="Show how the model works" aria-label="Show how the model works">
+                    <span aria-hidden="true">ⓘ</span>
+                    <span class="hidden sm:inline">How it works</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Context -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <div class="text-xs uppercase tracking-[1.5px]  font-semibold mb-1"><span id="baseline-desc">Overdose deaths</span> • 2018 &mdash; 2025*</div>
+                    <div class="text-3xl font-semibold tabular-nums"><span id="actual-to-date">—</span> <span class="text-xl text-slate-400">&mdash; Total deaths</span> </div>
+                </div>
+                <div>
+                    <div class="text-xs uppercase tracking-[1.5px] text-slate-400 font-semibold mb-1">V2/V1 OD deaths (growth-rate period)</div>
+                    <div>
+                        <div class="text-slate-200 uppercase tracking-[1.5px]  font-semibold mb-1">V2 <span id="observed-end-year">—</span> &mdash; <span class="text-slate-100 font-semibold tabular-nums"><span id="observed-end-value">—</span> </span></div>
+                        <hr />
+                        <div class="text-slate-200 uppercase tracking-[1.5px]  font-semibold mb-1">V1 <span id="baseline-start-year">—</span> &mdash; <span class="text-slate-100 font-semibold tabular-nums"><span id="baseline-start-value">—</span></span></div>
+                    </div>
+                </div>
+                <div>
+                    <div id="observed-td-desc" class="text-xs uppercase tracking-[1.5px] text-slate-400 font-semibold mb-1">time to double</div>
+                    <div class="text-3xl font-semibold tabular-nums"><span id="observed-td-value" class="text-amber-400">—</span> <span class="text-xl text-slate-400">years</span></div>
+                    <div class="text-slate-400">Calculated from State data • <span id="observed-cagr">—</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" aria-live="polite">
+                <div>
+                    <div class="text-xs uppercase tracking-[1.5px] text-slate-400 font-semibold mb-1">Actual <span class="last-year">2025</span>* • projection start</div>
+                    <div class="text-3xl font-semibold tabular-nums"><span id="actual-last">—</span> <span class="text-xl text-slate-400"> &mdash; <span class="last-year">2025</span>*</span></div>
+                </div>
+                <div>
+                    <div class="text-xs uppercase tracking-[1.5px] text-slate-400 font-semibold mb-1">Est. <span class="next-year">2026</span> • current slider settings</div>
+                    <div class="text-3xl font-semibold tabular-nums"><span id="est-next">—</span> <span class="text-xl text-slate-400"> &mdash; Est. <span class="next-year">2026</span></span></div>
+                </div>
+                <div>
+                    <div class="text-xs uppercase tracking-[1.5px] text-slate-400 font-semibold mb-1">Predicted <span class="next2-year">2027</span> • current slider settings</div>
+                    <div class="text-3xl font-semibold tabular-nums"><span id="pred-next2">—</span> <span class="text-xl text-slate-400">&mdash; Pred. <span class="next2-year">2027</span></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model controls: series + base period (radio buttons for one-click changes) -->
+        <div class="mb-6 bg-slate-900 border border-slate-800 rounded-3xl p-4 space-y-4">
+            <!-- Base period selector -->
+            <fieldset>
+                <legend class="text-xs uppercase tracking-widest text-slate-400 font-semibold mb-2">Growth rate from observed period:</legend>
+                <div class="flex flex-col2 gap-x-6 gap-y-1 text-sm">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="base-period" value="2018-2025" checked class="accent-amber-400">
+                        <span>2018–2025* &mdash; All data years</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="base-period" value="2019-2023" class="accent-amber-400">
+                        <span>2019–2023 &mdash; Addiction high growth years</span>
+                    </label>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-1.5">Chooses the V1–V2 date range that sets the natural (no-policy) annual growth rate, time to double or half-life of the modeled series. Projections always start from the actual 2025* count. *2025 is preliminary DOH data.</div>
+            </fieldset>
+
+            <!-- Series selector -->
+            <fieldset>
+                <legend class="text-xs uppercase tracking-widest text-slate-400 font-semibold mb-2">OD Cause</legend>
+                <div class="flex flex-col2 gap-x-6 gap-y-1 text-sm">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="deaths-series" value="total" checked class="accent-amber-400">
+                        <span>OD deaths</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="deaths-series" value="fetty" class="accent-amber-400">
+                        <span>Fentanyl deaths</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="deaths-series" value="opiates" class="accent-amber-400">
+                        <span>Opiates OD deaths</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer" title="DOH psychostimulants category: mostly methamphetamine (also amphetamines, MDMA); excludes cocaine">
+                        <input type="radio" name="deaths-series" value="meth" class="accent-amber-400">
+                        <span>Stimulant deaths</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="deaths-series" value="oxy" class="accent-amber-400">
+                        <span>Oxy deaths</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="deaths-series" value="heroin" class="accent-amber-400">
+                        <span>Heroin deaths</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="deaths-series" value="cocaine" class="accent-amber-400">
+                        <span>Cocaine deaths</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer" title="DOH alcohol poisoning category: deaths where acute alcohol poisoning was a cause; does not include alcohol-related crashes, falls, or liver disease.">
+                        <input type="radio" name="deaths-series" value="alcohol" class="accent-amber-400">
+                        <span>Alcohol poisoning deaths</span>
+                    </label>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-2">Switches the model (baseline, projections, t-double or half-life, chart, lives saved) between total, fentanyl, opiate, stimulant, oxycodone (Rx opioid), heroin, cocaine, and alcohol poisoning deaths. Stimulant = DOH psychostimulants category, mostly methamphetamine (excludes cocaine). Alcohol poisoning = DOH alcohol poisoning category: deaths where acute alcohol poisoning was a cause; does not include alcohol-related crashes, falls, or liver disease.</div>
+            </fieldset>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Controls -->
+            <div class="lg:col-span-5">
+                <div class="sticky top-8">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-7">
+                        <h2 class="section-header mb-6 flex items-center gap-x-2">
+                            <span>Policy Levers</span>
+                        </h2>
+
+                        <!-- Slider 1: Migration -->
+                        <div class="mb-8">
+                            <div class="flex items-center justify-between mb-3">
+                                <div>
+                                    <div class="slider-label flex items-center gap-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                        <span id="migration-label">Discourage Addict Migration / Inflow</span>
+                                    </div>
+                                    <div class="text-xs text-slate-400 mt-0.5">Reduce net arrival of active users</div>
+                                </div>
+                                <div class="text-right">
+                                    <span id="mig-value" class="text-2xl font-semibold tabular-nums text-amber-400">0</span>
+                                    <span class="text-sm text-slate-400">%</span>
+                                </div>
+                            </div>
+
+                            <input type="range" id="migration-slider"
+                                   class="w-full accent-amber-500 bg-slate-800"
+                                   aria-labelledby="migration-label" aria-valuetext="0 percent"
+                                   min="0" max="100" step="5" value="0">
+
+                            <div class="flex justify-between text-[10px] text-slate-400 mt-1.5 px-0.5">
+                                <div>0% (status quo)</div>
+                                <div>100% (strong discouragement)</div>
+                            </div>
+                        </div>
+
+                        <!-- Slider 2: Criminalization -->
+                        <div class="mb-8">
+                            <div class="flex items-center justify-between mb-3">
+                                <div>
+                                    <div class="slider-label flex items-center gap-x-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
+                                        <span id="enforcement-label">Criminalize Use &amp; Distribution</span>
+                                    </div>
+                                    <div class="text-xs text-slate-400 mt-0.5">Enforcement + deterrence impact</div>
+                                </div>
+                                <div class="text-right">
+                                    <span id="enforce-value" class="text-2xl font-semibold tabular-nums text-red-400">0</span>
+                                    <span class="text-sm text-slate-400">%</span>
+                                </div>
+                            </div>
+
+                            <input type="range" id="enforcement-slider"
+                                   class="w-full accent-red-500 bg-slate-800"
+                                   aria-labelledby="enforcement-label" aria-valuetext="0 percent"
+                                   min="0" max="100" step="5" value="0">
+
+                            <div class="flex justify-between text-[10px] text-slate-400 mt-1.5 px-0.5">
+                                <div>0% (current approach)</div>
+                                <div>100% (strong enforcement)</div>
+                            </div>
+                        </div>
+
+                        <!-- Projection horizon -->
+                        <div class="mb-2">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="slider-label" id="year-label">Projection horizon</div>
+                                <div>
+                                    <span id="year-value" class="text-xl font-semibold tabular-nums">6</span>
+                                    <span class="text-slate-400">years</span>
+                                    <span class="text-xs text-slate-400">(2026&ndash;<span id="year-end">2029</span>)</span>
+                                </div>
+                            </div>
+                            <input type="range" id="year-slider"
+                                   class="w-full accent-slate-400 bg-slate-800"
+                                   aria-labelledby="year-label" aria-describedby="year-note" aria-valuetext="4 years, through 2029"
+                                   min="1" max="10" step="1" value="4">
+                            <p id="year-note" class="text-xs text-slate-400 mt-2">
+                                Default: 4 years (2026&ndash;2029); maximum 10.
+                                Beyond a few years the lines show what pure compounding implies, not a forecast.
+                            </p>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-800 flex gap-x-3">
+                            <button type="button" onclick="resetSliders()"
+                                    class="flex-1 py-2.5 px-4 bg-slate-800 hover:bg-slate-700 active:bg-slate-900 transition-colors text-sm font-medium rounded-2xl border border-slate-700">
+                                Reset to Baseline
+                            </button>
+                            <button type="button" id="copy-btn" onclick="copyResults()"
+                                    class="flex-1 py-2.5 px-4 bg-white text-slate-950 hover:bg-slate-100 active:bg-slate-200 transition-colors text-sm font-semibold rounded-2xl flex items-center justify-center gap-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 16v-4m4 4v4m4-8v8m4-4v-4m-16 8h16a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2" />
+                                </svg>
+                                <span id="copy-label">Copy summary</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Key insight box -->
+                    <div class="mt-6 bg-slate-900/70 border border-slate-800 rounded-3xl p-5 text-sm">
+                        <div class="uppercase text-[10px] tracking-widest text-slate-400 font-semibold mb-2">HOW THE MODEL WORKS</div>
+                        <div class="text-slate-300 leading-snug">
+                            Growth comes from two drivers:<br>
+                            • <span class="font-medium text-amber-300">Inflow/migration</span> of new users (35% of growth)<br>
+                            • <span class="font-medium text-red-300">Lethality + distribution</span> among existing users (65%)<br><br>
+                            Sliders reduce the compounding growth rate in proportion to those shares; both at 100% turn growth into a decline.
+                            Projections start from the actual 2025 count (preliminary).<br>
+                            t-double or half-life = ln(2) / |growth rate|, per the equations.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="lg:col-span-7">
+                <!-- Summary metrics -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6" aria-live="polite">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5">
+                        <div id="baseline-label" class="text-xs text-slate-400 mb-1">BASELINE (no change)</div>
+                        <div id="baseline-deaths" class="text-4xl font-semibold tabular-nums text-white result-number">—</div>
+                        <div class="text-xs text-slate-400 mt-1"><span id="projected-prefix">Projected deaths</span> in <span id="baseline-year">—</span></div>
+                    </div>
+
+                    <div class="bg-slate-900 border border-emerald-900/60 rounded-3xl p-5">
+                        <div class="text-xs text-emerald-400 mb-1">WITH POLICY CHANGES</div>
+                        <div id="policy-deaths" class="text-4xl font-semibold tabular-nums text-emerald-400 result-number">—</div>
+                        <div class="text-xs text-emerald-300/80 mt-1"><span id="policy-prefix">Projected deaths</span> in <span id="policy-year">—</span></div>
+                    </div>
+
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col1 justify-between">
+                        <div>
+                            <div id="lives-saved-label" class="text-xs text-slate-400">LIVES SAVED</div>
+                            <div id="lives-saved" class="text-4xl font-semibold tabular-nums text-emerald-400 result-number">—</div>
+                        </div>
+                        <div id="lives-saved-desc" class="text-[10px] text-emerald-300/70">cumulative vs. baseline trajectory</div>
+                    </div>
+                </div>
+
+                <!-- t-double / Half-life (symmetric ln(2)/ln(ratio)) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4">
+                        <div id="baseline-td-label" class="text-xs text-slate-400 mb-1">BASELINE t-double</div>
+                        <div class="text-2xl font-semibold tabular-nums"><span id="baseline-td-value" class="text-amber-400">—</span> <span class="text-sm text-amber-400">years</span></div>
+                        <div id="baseline-td-desc" class="text-[10px] text-slate-400">time to double (t-double &gt; 0 when V₂/V₁ &gt; 1)</div>
+                    </div>
+                    <div id="policy-td" class="bg-slate-900 border border-emerald-900/60 rounded-3xl p-4">
+                        <div class="text-xs text-emerald-400 mb-1">POLICY &mdash; t-Double or Half-Life</div>
+                        <div id="policy-td-value" class="text-2xl font-semibold tabular-nums">—</div>
+                        <div id="policy-td-desc" class="text-[10px] text-emerald-300/70">—</div>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 mb-6">
+                    <div class="chart-head flex items-center justify-between mb-4 px-1">
+                        <div>
+                            <div class="font-semibold">Projected OD Deaths</div>
+                            <div id="chart-horizon" class="text-xs text-slate-400">Observed years, then projection</div>
+                        </div>
+                        <div class="chart-legend flex items-center gap-x-4 text-xs">
+                            <div class="flex items-center gap-x-1.5">
+                                <div class="w-3 h-0.5 bg-white"></div>
+                                <span class="text-slate-300">Observed</span>
+                            </div>
+                            <div class="flex items-center gap-x-1.5">
+                                <div class="w-3 h-0.5 bg-slate-400"></div>
+                                <span class="text-slate-400">Baseline</span>
+                            </div>
+                            <div class="flex items-center gap-x-1.5">
+                                <div class="w-3 h-0.5 bg-emerald-400"></div>
+                                <span class="text-emerald-400">With policies</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="chart-unavailable" class="hidden text-xs text-amber-300 py-6 text-center">Chart unavailable (chart.umd.min.js did not load). The numbers and table still work.</div>
+                    <canvas id="projection-chart" class="w-full" role="img" aria-label="Line chart of observed and projected overdose deaths; the same numbers are in the year-by-year table below."></canvas>
+                </div>
+
+                <!-- Data table -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
+                    <div class="px-6 pt-5 pb-3 flex items-center justify-between">
+                        <div class="font-semibold text-sm" id="projection-table-title">Year-by-year: observed, then projected</div>
+                        <div class="text-[10px] text-slate-400">Scroll for more years →</div>
+                    </div>
+                    <div class="max-h-[210px] overflow-auto" tabindex="0" role="region" aria-labelledby="projection-table-title">
+                        <table class="w-full text-sm data-table">
+                            <thead class="sticky top-0 bg-slate-900 z-10">
+                                <tr class="border-b border-slate-800 text-xs text-slate-400">
+                                    <th class="text-left pl-6 py-3 font-normal">Year</th>
+                                    <th class="text-right pr-4 py-3 font-normal">Baseline</th>
+                                    <th class="text-right pr-6 py-3 font-normal">With Policies</th>
+                                    <th class="text-right pr-6 py-3 font-normal text-emerald-400">Difference</th>
+                                    <th class="text-right pr-6 py-3 font-normal text-amber-400">T_d / Half-life<br><span class="text-[9px]">(observed: from first row · projected: from 2025)</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="projection-table" class="text-sm divide-y divide-slate-800 font-mono tabular-nums">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center text-xs text-slate-400">
+            This is a simplified exponential model for illustrative purposes. Real-world outcomes depend on many variables including supply, treatment access, and enforcement consistency.
+        </div>
+        <!-- Legal notice - required for campaign materials -->
+        <div class="legal-footer legal-text mt-6 text-center border-t border-slate-800 pt-3">
+            Paid for by Friends of Jillian England (AKA FOJE), P.O. Box 30064, Seattle, WA 98113.<br>
+            This model is paid for and authorized by the committee to elect Jillian England as defined on the C1.<br>
+            &copy; 2026 Friends of Jillian England. Licensed under <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener" class="underline">AGPL-3.0-or-later</a>.
+            See project README.md / LICENSE.txt for details.<br>
+        </div>
+        <div class="legal-footer mt-6 text-center border-t border-slate-800 pt-3">
+            <button type="button" onclick="toggleNote()" data-note-toggle aria-controls="note" aria-expanded="false"
+                    class="inline-flex items-center gap-x-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-3xl px-3 py-1.5 text-xs text-slate-300 transition-colors"
+                    title="Show how the model works" aria-label="Show how the model works">
+                <span aria-hidden="true">ⓘ</span>
+                <span class="hidden sm:inline">How it works</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- The Note section (toggled by the How it works buttons) -->
+    <div id="note" hidden class="mt-6 p-4 bg-slate-900 border border-slate-700 rounded-3xl text-slate-400 max-w-2xl mx-auto leading-tight">
+
+        <div class="mb-1">
+            <h3 class="text-slate-100">How the Model Works</h3>
+        </div>
+
+        <p><span class="text-slate-100">This interactive simulation</span> is built from Washington State Department of Health counts of confirmed overdose deaths among Washington residents (2018–2025; 2025 is preliminary). During the 2019–2023 surge, total deaths compounded at about 28.7% a year &mdash; doubling roughly every 2.7 years (about every 5.4 years if you use all 2018–2025 data, which includes the 2024 and 2025 declines). The model projects that compounding forward year by year from the actual 2025 count; observed years are shown as actual data and are never changed by the sliders.</p>
+        <h4>The two sliders reduce the compounding growth rate in targeted ways:</h4>
+        <ul class="list-disc pl-4 space-y-0.5">
+            <li><span class="text-slate-100">Discourage Migration/Inflow</span> lowers the arrival of new active addicts into the pool (treated as 35% of the growth).</li>
+            <li><span class="text-slate-100">Criminalize Use &amp; Distribution</span> reduces lethality and frequency of fatal use among the existing population through stronger enforcement and deterrence (treated as 65% of the growth).</li>
+        </ul>
+        <p>Each slider removes its share of the growth rate. With both at 100% the trend reverses into a decline half as fast as the original growth (a doubling time of T years becomes a half-life of 2T years). For a series that is already declining, the sliders make it decline faster. The policy line is never allowed to fall by more than 50% per year (unless the series is already falling faster on its own).</p>
+        <p><span class="text-slate-200">Move the sliders</span> to see how policy changes bend the curve and how many lives could be saved: <em>Lives saved</em> is the cumulative difference between baseline and policy deaths over the projection years. The chart, table, and T_double / half-life metrics update live.</p>
+        <p class="mb-3">This is a simplified illustrative model &mdash; the 35%/65% split and the strength of the levers are assumptions, not measured effects, and real results depend on consistent implementation in an open system &mdash; but it shows the power of addressing the two core drivers of the crisis.</p>
+
+        <!-- Observed data table (breakdowns) -->
+        <div class="mt-4 p-3 bg-slate-800 border border-slate-700 rounded-2xl">
+            <div class="text-xs uppercase tracking-widest text-slate-300 mb-2">Observed Washington State Overdose Deaths (source data)</div>
+            <div class="overflow-x-auto" tabindex="0" role="region" aria-label="Observed overdose deaths by year and substance">
+                <table class="w-full text-xs">
+                    <thead>
+                        <tr class="text-slate-300 border-b border-slate-600">
+                            <th class="text-left pr-3 py-1 font-normal">Year</th>
+                            <th class="text-right px-2 py-1 font-normal">Total OD</th>
+                            <th class="text-right px-2 py-1 font-normal">Opiates OD</th>
+                            <th class="text-right px-2 py-1 font-normal">Heroin</th>
+                            <th class="text-right px-2 py-1 font-normal">Fentanyl</th>
+                            <th class="text-right px-2 py-1 font-normal">Oxy</th>
+                            <th class="text-right px-2 py-1 font-normal">Meth</th>
+                            <th class="text-right px-2 py-1 font-normal">Cocaine</th>
+                            <th class="text-right px-2 py-1 font-normal">Alcohol</th>
+                        </tr>
+                    </thead>
+                    <tbody id="observed-data-tbody" class="font-mono tabular-nums text-slate-200">
+                        <!-- populated by JS from overdose-data.js -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-[10px] text-slate-300 mt-1">The radio buttons above choose the series and years that define the natural growth rate (T_d) used by the model. Substance columns overlap (one death can involve several drugs), so they do not add up to the total. Alcohol = DOH alcohol poisoning category: deaths where acute alcohol poisoning was a cause; does not include alcohol-related crashes, falls, or liver disease. DOH codes alcohol poisoning as ICD-10 X45, X65, Y15, which are outside its &ldquo;Any drug&rdquo; definition (X40&ndash;X44, X60&ndash;X64, X85, Y10&ndash;Y14), so these deaths are not counted in Total OD.</div>
+            <div class="text-[10px] text-slate-300 mt-1">*2025 preliminary, DOH Oct 12, 2026 (sum of quarterly counts); heroin quarters suppressed (&lt;10), 23 from DOH Mar 2026 table.</div>
+        </div>
+
+        <br /><hr /><br />
+
+        <h3 class="text-slate-100">Continuous Compounding Mathematics</h3>
+        <p class="mb-3">
+            This is an exponential (compounding) growth-or-decay model showing the <strong>Time-to-double or Half-Life</strong> of overdose deaths in Washington State:
+        </p>
+        <img src="time2doubleequations-dark.gif" alt="Equations for T_double and T_half" class="img-responsive rounded mb-3" style="border: 1px solid #475569;" />
+
+        <br /><hr /><br />
+
+        <h3 class="text-slate-100">Data Sources and Methodology</h3>
+        <p class="mb-3">
+            Source: Washington State Department of Health (death certificates), &ldquo;Confirmed Overdose Deaths among Washington Residents,&rdquo; by year and substance, 2018–2025 &mdash;
+            <a href="https://doh.wa.gov/data-and-statistical-reports/washington-tracking-network-wtn/opioids/overdose-dashboard" target="_blank" rel="noopener" class="link-amber">DOH Opioid and Drug Use Data Dashboard</a>.
+            Values are from DOH&rsquo;s <a href="https://doh.wa.gov/sites/default/files/Data/Auto-Uploads/Opioids/Overdose_Downloadable_Deaths.csv" target="_blank" rel="noopener" class="link-amber">downloadable overdose-deaths data</a> (statewide, annual counts; data file dated Oct. 12, 2026), which include DOH&rsquo;s March 2026 revision of 2024 (3,145 deaths; previously reported as a preliminary 3,086) and minor revisions to earlier years. <strong>*2025 is preliminary</strong>: the sum of DOH&rsquo;s 2025 quarterly counts in the same Oct. 12, 2026 file (total 2,932). DOH suppresses heroin quarters under 10, so the 2025 heroin value (23) is from DOH&rsquo;s March 16, 2026 table. 2025 values may change when DOH finalizes them.
+            Column names: Fentanyl = synthetic opioids; Oxy = prescription opioids other than fentanyl; Opiates = any opioid; Meth = psychostimulants; Alcohol = DOH &ldquo;Alcohol Poisoning&rdquo; category (2025 preliminary: 400). DOH alcohol poisoning category: deaths where acute alcohol poisoning was a cause; does not include alcohol-related crashes, falls, or liver disease. DOH codes alcohol poisoning as ICD-10 X45, X65, Y15, which are outside its &ldquo;Any drug&rdquo; definition (X40&ndash;X44, X60&ndash;X64, X85, Y10&ndash;Y14), so these deaths are not counted in Total OD.
+        </p>
+        <img src="Washington_Overdose_death_2018-25.gif" alt="Verification graphic: Washington State overdose deaths by substance, 2018–2024 (DOH counts) with a 2025 compounding estimate made before DOH&rsquo;s preliminary 2025 counts, shown as a data table with a linear chart and a natural-log (ln) chart" class="img-responsive rounded mb-3" style="border: 1px solid #475569;" />
+        <p class="text-center small">
+            <a href="Washington_Overdose_death_2018-25.gif" target="_blank" class="link-amber">Open the verification graphic full size</a>
+            &middot; in this graphic the 2025 row is a compounding estimate from the 2018&ndash;2024 trend, not DOH data; the model now uses DOH&rsquo;s preliminary 2025 counts.
+        </p>
+
+    </div>
+
+    <script>
+        // =====================================================================================
+        // Washington State overdose policy model (standalone; needs the sibling files
+        // chart.umd.min.js, math-utils.js and overdose-data.js in the same folder).
+        // =====================================================================================
+
+        // ---- Model coefficients (also documented in README.md -> "Model assumptions") -------
+        // Observed (no-policy) growth for the selected series and period:
+        //     M  = (V2 / V1)^(1/dt)        annual multiplier (CAGR = M - 1)
+        //     r0 = ln(M)                   continuous ("log") growth rate; negative = declining
+        // The policy levers reduce the LOG growth rate, scaled by its size, so they behave the
+        // same way for growing and declining series (they always push the trend down):
+        //     r_policy = r0 - |r0| * (a * enforcement + b * migration)      (sliders as 0..1)
+        //     a = LETHALITY_SHARE * MAX_RATE_SHIFT = 0.65 * 1.5 = 0.975
+        //     b = INFLOW_SHARE    * MAX_RATE_SHIFT = 0.35 * 1.5 = 0.525
+        // Both sliders at 100% give r_policy = -0.5 * r0 for a growing series: a doubling time of
+        // T years becomes a half-life of 2T years (a moderate reversal, not a collapse to zero).
+        // Floor: the policy multiplier is never below MIN_POLICY_MULTIPLIER (max 50% fewer deaths
+        // per year) unless the baseline itself already declines faster; the policy rate is never
+        // above the baseline rate, so the policy line can't end up above the baseline.
+        const LETHALITY_SHARE = 0.65;       // share of growth from lethality + distribution (enforcement lever)
+        const INFLOW_SHARE = 0.35;          // share of growth from inflow / migration of new users (migration lever)
+        const MAX_RATE_SHIFT = 1.5;         // both levers at 100% shift r by 1.5 x |r0|
+        const COEF_ENFORCEMENT = LETHALITY_SHARE * MAX_RATE_SHIFT;  // a = 0.975
+        const COEF_MIGRATION = INFLOW_SHARE * MAX_RATE_SHIFT;       // b = 0.525
+        const MIN_POLICY_MULTIPLIER = 0.5;
+        const LAST_OBSERVED_YEAR = 2025;    // projections start from this year's actual count (2025 = DOH preliminary)
+        const PRELIMINARY_YEARS = [2025];   // observed years shown with * (preliminary DOH counts)
+        const DEFAULT_HORIZON_YEARS = 4;    // default projection horizon (2026-2029); keep in sync with #year-slider value
+        const STABLE_HORIZON_YEARS = 12;    // |T_d| beyond this is shown as "stable" (political horizon)
+
+        const SERIES_TEXT = {
+            total:   { desc: 'Overdose Deaths', baseline: 'BASELINE (no change)', prefix: 'Projected deaths' },
+            fetty:   { desc: 'Fentanyl OD Deaths', baseline: 'FENTANYL BASELINE (no change)', prefix: 'Projected fentanyl deaths' },
+            opiates: { desc: 'Opiate OD Deaths', baseline: 'OPIATES BASELINE (no change)', prefix: 'Projected opiate deaths' },
+            meth:    { desc: 'Stimulant (Meth) OD Deaths', baseline: 'STIMULANT BASELINE (no change)', prefix: 'Projected stimulant deaths' },
+            oxy:     { desc: 'Oxy OD Deaths', baseline: 'OXY BASELINE (no change)', prefix: 'Projected oxy deaths' },
+            heroin:  { desc: 'Heroin OD Deaths', baseline: 'HEROIN BASELINE (no change)', prefix: 'Projected heroin deaths' },
+            cocaine: { desc: 'Cocaine OD Deaths', baseline: 'COCAINE BASELINE (no change)', prefix: 'Projected cocaine deaths' },
+            alcohol: { desc: 'Alcohol Poisoning Deaths', baseline: 'ALCOHOL POISONING BASELINE (no change)', prefix: 'Projected alcohol poisoning deaths' }
+        };
+
+        // Current model state (set by applyBasePeriod, used by updateUI / copyResults)
+        const modelState = {
+            series: 'total', periodKey: '2019-2023',
+            startYear: 2019, endYear: 2023, v1: NaN, v2: NaN, dt: 4,
+            r0: 0, observed: [], lastActual: NaN
+        };
+
+        let chartInstance = null;
+        let chartAvailable = true;
+
+        const PRELIM_NOTE = '*2025 preliminary (DOH, Oct 12, 2026); heroin quarters suppressed, 23 from DOH Mar 2026 table';
+        const isPrelim = (y) => PRELIMINARY_YEARS.includes(y);
+        const yearLabel = (y) => isPrelim(y) ? `${y}*` : String(y);
+        const byId = (id) => document.getElementById(id);
+        const fmt = (n) => Math.round(n).toLocaleString();
+        const fmtPct = (multiplier) => {
+            const p = (multiplier - 1) * 100;
+            return (p > 0 ? '+' : '') + p.toFixed(1) + '%';
+        };
+
+        // Detect iframe for better embedding (self-contained model)
+        function applyIframeStyles() {
+            if (window.self !== window.top) {
+                document.body.classList.add('iframe-embedded');
+                const liveBadge = document.querySelector('.inline-flex.items-center.gap-x-2.bg-slate-900');
+                if (liveBadge) liveBadge.style.display = 'none';
+            }
+        }
+        applyIframeStyles();
+
+        // ---- Missing-file guard ------------------------------------------------------------
+        function showLoadError(html) {
+            const el = byId('load-error');
+            if (!el) return;
+            el.innerHTML = html;
+            el.classList.remove('hidden');
+        }
+
+        function checkDependencies() {
+            const missing = [];
+            if (typeof window.MathUtils === 'undefined') missing.push('math-utils.js');
+            if (typeof window.OverdoseData === 'undefined') missing.push('overdose-data.js');
+            const fatal = missing.length > 0;
+            if (typeof window.Chart === 'undefined') missing.push('chart.umd.min.js');
+            if (missing.length) {
+                showLoadError(
+                    '<strong>Some model files could not be loaded: ' + missing.join(', ') + '.</strong> ' +
+                    (fatal ? 'The model cannot run without them. ' : 'The chart is unavailable, but the numbers and table still work. ') +
+                    'Keep all files from the download together in one folder (extract the zip first &mdash; don&rsquo;t open the page from inside the zip), then reload. ' +
+                    'See README.md &rarr; Troubleshooting.');
+            }
+            return { fatal, chartMissing: typeof window.Chart === 'undefined' };
+        }
+
+        // ---- T_d helpers -------------------------------------------------------------------
+        // Classify a MathUtils.Td result: time to double (td > 0), half-life (td < 0), or stable.
+        function describeTd(tdObj) {
+            if (!tdObj || tdObj.isInfinite || !isFinite(tdObj.td) || Math.abs(tdObj.td) > STABLE_HORIZON_YEARS) {
+                return { kind: 'stable', years: tdObj && isFinite(tdObj.td) ? Math.abs(tdObj.td) : Infinity };
+            }
+            return { kind: tdObj.td > 0 ? 'double' : 'half', years: Math.abs(tdObj.td) };
+        }
+
+        function tdFromRate(r) {
+            // T_d for one year of growth at continuous rate r (same as MathUtils.Td(1, e^r, 1))
+            return window.MathUtils.Td(1, Math.exp(r), 1);
+        }
+
+        function setTdCard(valueEl, descEl, d, labels) {
+            if (!valueEl) return;
+            valueEl.classList.remove('text-amber-400', 'text-emerald-400', 'text-amber-300');
+            const unitEl = valueEl.nextElementSibling;
+            if (d.kind === 'stable') {
+                valueEl.textContent = 'Stable';
+                valueEl.classList.add('text-emerald-400');
+                if (unitEl && unitEl.tagName === 'SPAN') unitEl.textContent = '';
+            } else {
+                valueEl.textContent = d.years.toFixed(2);
+                valueEl.classList.add(d.kind === 'double' ? 'text-amber-400' : 'text-emerald-400');
+                if (unitEl && unitEl.tagName === 'SPAN') unitEl.textContent = 'years';
+            }
+            if (descEl && labels) descEl.textContent = labels[d.kind];
+        }
+
+        // ---- Base period / series ----------------------------------------------------------
+        function applyBasePeriod() {
+            const periodChecked = document.querySelector('input[name="base-period"]:checked');
+            modelState.periodKey = periodChecked ? periodChecked.value : '2019-2023';
+            const seriesChecked = document.querySelector('input[name="deaths-series"]:checked');
+            modelState.series = seriesChecked ? seriesChecked.value : 'total';
+
+            if (modelState.periodKey === '2018-2025') { modelState.startYear = 2018; modelState.endYear = LAST_OBSERVED_YEAR; }
+            else { modelState.startYear = 2019; modelState.endYear = 2023; }
+
+            const p = window.OverdoseData.getGrowthParams(modelState.series, modelState.startYear, modelState.endYear);
+            const rec = window.OverdoseData.getRecord(LAST_OBSERVED_YEAR);
+            if (!p || !rec || !(p.v0 > 0) || !(p.v1 > 0) || !(rec[modelState.series] > 0)) {
+                showLoadError('<strong>No usable data for this series/period.</strong> Check overdose-data.js.');
+                return false;
+            }
+
+            modelState.v1 = p.v0;            // V1 (start of growth-rate period)
+            modelState.v2 = p.v1;            // V2 (end of growth-rate period)
+            modelState.dt = p.dt;
+            modelState.r0 = Math.log(p.v1 / p.v0) / p.dt;
+            modelState.lastActual = rec[modelState.series];
+            modelState.observed = window.OverdoseData.getTableData(modelState.startYear, LAST_OBSERVED_YEAR)
+                .map(r => ({ year: r.year, value: r[modelState.series] }));
+
+            byId('baseline-start-value').textContent = modelState.v1.toLocaleString();
+            byId('baseline-start-year').textContent = modelState.startYear;
+            byId('observed-end-value').textContent = modelState.v2.toLocaleString();
+            byId('observed-end-year').textContent = yearLabel(modelState.endYear);
+            byId('observed-cagr').textContent = `${fmtPct(Math.exp(modelState.r0))} CAGR`;
+            byId('actual-last').textContent = modelState.lastActual.toLocaleString();
+            document.querySelectorAll('.last-year').forEach(el => { el.textContent = LAST_OBSERVED_YEAR; });
+            document.querySelectorAll('.next-year').forEach(el => { el.textContent = LAST_OBSERVED_YEAR + 1; });
+            document.querySelectorAll('.next2-year').forEach(el => { el.textContent = LAST_OBSERVED_YEAR + 2; });
+
+            // Observed T_d over the whole period; the BASELINE card uses the same rate.
+            const d = describeTd(window.MathUtils.Td(modelState.v1, modelState.v2, modelState.dt));
+            setTdCard(byId('observed-td-value'), byId('observed-td-desc'), d,
+                { double: 'time to double', half: 'half-life', stable: 'stable / homeostasis' });
+            setTdCard(byId('baseline-td-value'), byId('baseline-td-desc'), d,
+                { double: 'time to double (t-double > 0 when V₂/V₁ > 1)', half: 'half-life (V₂/V₁ < 1)',
+                  stable: `stable: doubling time / half-life beyond ~${STABLE_HORIZON_YEARS} years` });
+            const bLabel = byId('baseline-td-label');
+            if (bLabel) bLabel.textContent = d.kind === 'half' ? 'BASELINE half-life' : (d.kind === 'stable' ? 'BASELINE trend' : 'BASELINE t-double');
+
+            const t = SERIES_TEXT[modelState.series] || SERIES_TEXT.total;
+            byId('baseline-desc').textContent = t.desc;
+            byId('baseline-label').textContent = t.baseline;
+            byId('projected-prefix').textContent = t.prefix;
+            byId('policy-prefix').textContent = t.prefix;
+
+            const actualSum = window.OverdoseData.getTableData(2018, LAST_OBSERVED_YEAR)
+                .reduce((s, r) => s + (Number(r[modelState.series]) || 0), 0);
+            byId('actual-to-date').textContent = actualSum.toLocaleString();
+            return true;
+        }
+
+        // ---- Model math ----------------------------------------------------------------------
+        function policyRate(migrationPct, enforcementPct) {
+            const m = migrationPct / 100, e = enforcementPct / 100;
+            let r = modelState.r0 - Math.abs(modelState.r0) * (COEF_ENFORCEMENT * e + COEF_MIGRATION * m);
+            const rFloor = Math.min(modelState.r0, Math.log(MIN_POLICY_MULTIPLIER));
+            return Math.max(r, rFloor);
+        }
+
+        // Unrounded projected values for LAST_OBSERVED_YEAR+1 .. LAST_OBSERVED_YEAR+years
+        function project(years, r) {
+            const out = [];
+            for (let k = 1; k <= years; k++) out.push(modelState.lastActual * Math.exp(r * k));
+            return out;
+        }
+
+        function populateObservedTable() {
+            const tbody = byId('observed-data-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            window.OverdoseData.getTableData().forEach(r => {
+                const tr = document.createElement('tr');
+                tr.className = 'border-b border-slate-700 last:border-0';
+                tr.innerHTML = `<td class="pr-3 py-0.5">${yearLabel(r.year)}</td>` +
+                    ['total', 'opiates', 'heroin', 'fetty', 'oxy', 'meth', 'cocaine', 'alcohol']
+                        .map(k => `<td class="px-2 py-0.5 text-right">${r[k].toLocaleString()}</td>`).join('');
+                tbody.appendChild(tr);
+            });
+        }
+
+        function tdCellHtml(d) {
+            if (d.kind === 'stable') return '<span class="text-emerald-400">stable</span>';
+            if (d.kind === 'double') return `<span class="text-amber-400">${d.years.toFixed(2)}</span> y <span class="text-[9px] text-slate-400">(double)</span>`;
+            return `<span class="text-emerald-400">${d.years.toFixed(2)}</span> y <span class="text-[9px] text-emerald-400">(half-life)</span>`;
+        }
+
+        function updateUI() {
+            const migrationPct = parseInt(byId('migration-slider').value, 10);
+            const enforcementPct = parseInt(byId('enforcement-slider').value, 10);
+            const years = parseInt(byId('year-slider').value, 10);
+            const finalYear = LAST_OBSERVED_YEAR + years;
+
+            byId('mig-value').textContent = migrationPct;
+            byId('enforce-value').textContent = enforcementPct;
+            byId('year-value').textContent = years;
+            byId('year-end').textContent = finalYear;
+            byId('migration-slider').setAttribute('aria-valuetext', `${migrationPct} percent`);
+            byId('enforcement-slider').setAttribute('aria-valuetext', `${enforcementPct} percent`);
+            byId('year-slider').setAttribute('aria-valuetext', `${years} years, through ${finalYear}`);
+
+            const rPolicy = policyRate(migrationPct, enforcementPct);
+            const baseRaw = project(years, modelState.r0);
+            const polRaw = project(years, rPolicy);
+            // Display values are rounded once; every total is computed from the displayed numbers
+            // so the cards, table, chart and copied summary always agree.
+            const base = baseRaw.map(Math.round);
+            const pol = polRaw.map(Math.round);
+            const baselineFinal = base[base.length - 1];
+            const policyFinal = pol[pol.length - 1];
+            const livesSaved = base.reduce((s, b, i) => s + (b - pol[i]), 0);
+
+            byId('baseline-deaths').textContent = baselineFinal.toLocaleString();
+            byId('policy-deaths').textContent = policyFinal.toLocaleString();
+            byId('baseline-year').textContent = finalYear;
+            byId('policy-year').textContent = finalYear;
+            const savedEl = byId('lives-saved');
+            savedEl.textContent = (livesSaved < 0 ? '−' : '') + Math.abs(livesSaved).toLocaleString();
+            savedEl.classList.toggle('text-emerald-400', livesSaved >= 0);
+            savedEl.classList.toggle('text-red-400', livesSaved < 0);
+            byId('lives-saved-label').textContent = livesSaved < 0 ? 'ADDITIONAL DEATHS' : 'LIVES SAVED';
+            byId('lives-saved-desc').textContent = `cumulative ${LAST_OBSERVED_YEAR + 1}–${finalYear} vs. baseline`;
+
+            // Est. / Pred. (next two years) use the same projection as the table (from the last actual year).
+            byId('est-next').textContent = fmt(modelState.lastActual * Math.exp(rPolicy));
+            byId('pred-next2').textContent = fmt(modelState.lastActual * Math.exp(2 * rPolicy));
+
+            // Policy T_d / half-life card
+            const pd = describeTd(tdFromRate(rPolicy));
+            const pv = byId('policy-td-value');
+            pv.classList.toggle('text-amber-400', pd.kind === 'double');
+            pv.classList.toggle('text-emerald-400', pd.kind !== 'double');
+            if (pd.kind === 'stable') {
+                pv.textContent = 'Stable';
+                byId('policy-td-desc').textContent = `homeostasis (${fmtPct(Math.exp(rPolicy))}/yr; negligible change over ~${STABLE_HORIZON_YEARS}y horizon)`;
+            } else {
+                pv.innerHTML = `${pd.years.toFixed(2)} <span class="text-sm text-emerald-300">years</span>`;
+                byId('policy-td-desc').textContent = pd.kind === 'double'
+                    ? `T_d > 0 → time to double (${fmtPct(Math.exp(rPolicy))}/yr)`
+                    : `T_d = -${pd.years.toFixed(2)} < 0 → half-life (${fmtPct(Math.exp(rPolicy))}/yr)`;
+            }
+
+            updateTable(years, base, pol, polRaw);
+            updateChart(years, base, pol);
+
+            window.currentResults = {
+                years, finalYear, migrationPct, enforcementPct, baselineFinal, policyFinal, livesSaved,
+                baselineMultiplier: Math.exp(modelState.r0), policyMultiplier: Math.exp(rPolicy),
+                baselineTd: describeTd(window.MathUtils.Td(modelState.v1, modelState.v2, modelState.dt)),
+                policyTd: pd,
+                est2025: Math.round(modelState.lastActual * Math.exp(rPolicy))
+            };
+        }
+
+        function updateTable(years, base, pol, polRaw) {
+            const tbody = byId('projection-table');
+            const rows = [];
+            // Observed years: actual data, untouched by the sliders.
+            const first = modelState.observed[0];
+            modelState.observed.forEach((o, i) => {
+                const td = i === 0 ? '—' : tdCellHtml(describeTd(window.MathUtils.Td(first.value, o.value, o.year - first.year)));
+                rows.push(`<tr class="bg-slate-800/40">
+                    <td class="pl-6 py-2.5 text-slate-300 font-medium">${yearLabel(o.year)} <span class="text-[9px] text-slate-400 font-sans">${isPrelim(o.year) ? 'prelim.' : 'actual'}</span></td>
+                    <td class="text-right pr-4 py-2.5 text-slate-200">${o.value.toLocaleString()}</td>
+                    <td class="text-right pr-6 py-2.5 text-slate-200">${o.value.toLocaleString()}</td>
+                    <td class="text-right pr-6 py-2.5 text-slate-400">—</td>
+                    <td class="text-right pr-6 py-2.5 font-medium tabular-nums">${td}</td></tr>`);
+            });
+            // Projected years
+            for (let k = 0; k < years; k++) {
+                const diff = base[k] - pol[k];
+                const diffClass = diff > 0 ? 'text-emerald-400' : (diff < 0 ? 'text-red-400' : 'text-slate-400');
+                const td = tdCellHtml(describeTd(window.MathUtils.Td(modelState.lastActual, polRaw[k], k + 1)));
+                rows.push(`<tr>
+                    <td class="pl-6 py-2.5 text-slate-300 font-medium">${LAST_OBSERVED_YEAR + k + 1}</td>
+                    <td class="text-right pr-4 py-2.5 text-slate-200">${base[k].toLocaleString()}</td>
+                    <td class="text-right pr-6 py-2.5 text-emerald-300 font-medium">${pol[k].toLocaleString()}</td>
+                    <td class="text-right pr-6 py-2.5 ${diffClass} font-medium">${diff > 0 ? '+' : ''}${diff.toLocaleString()}</td>
+                    <td class="text-right pr-6 py-2.5 font-medium tabular-nums">${td}</td></tr>`);
+            }
+            tbody.innerHTML = rows.join('');
+        }
+
+        function updateChart(years, base, pol) {
+            const obs = modelState.observed;
+            const labels = obs.map(o => yearLabel(o.year));
+            for (let k = 1; k <= years; k++) labels.push(String(LAST_OBSERVED_YEAR + k));
+            const nObs = obs.length;
+            const pad = (n) => Array(n).fill(null);
+            // Projections are drawn from the last actual point so the lines connect.
+            const observedData = obs.map(o => o.value).concat(pad(years));
+            const baselineData = pad(nObs - 1).concat([modelState.lastActual], base);
+            const policyData = pad(nObs - 1).concat([modelState.lastActual], pol);
+
+            const horizonEl = byId('chart-horizon');
+            if (horizonEl) horizonEl.textContent = `Observed ${obs[0].year}–${LAST_OBSERVED_YEAR}* (2025 preliminary) • projected ${LAST_OBSERVED_YEAR + 1}–${LAST_OBSERVED_YEAR + years}`;
+
+            if (!chartAvailable) return;
+            if (chartInstance) {
+                chartInstance.data.labels = labels;
+                chartInstance.data.datasets[0].data = observedData;
+                chartInstance.data.datasets[1].data = baselineData;
+                chartInstance.data.datasets[2].data = policyData;
+                chartInstance.update();
+                return;
+            }
+            chartInstance = new Chart(byId('projection-chart'), {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        { label: 'Observed (actual)', data: observedData, borderColor: '#f8fafc', borderWidth: 3, tension: 0.2, pointRadius: 3, pointBackgroundColor: '#f8fafc', fill: false },
+                        { label: 'Baseline (no policy change)', data: baselineData, borderColor: '#94a3b8', borderDash: [6, 4], borderWidth: 3, tension: 0.25, pointRadius: 2.5, pointBackgroundColor: '#94a3b8', fill: false },
+                        { label: 'With policy changes', data: policyData, borderColor: '#34d399', borderWidth: 3.5, tension: 0.3, pointRadius: 3, pointBackgroundColor: '#34d399', fill: false }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            // hide empty points and the duplicate projection points at the last actual year
+                            filter: (item) => item.raw != null && !(item.datasetIndex > 0 && item.dataIndex === modelState.observed.length - 1),
+                            callbacks: {
+                                label: (ctx) => `${ctx.dataset.label}: ${Number(ctx.raw).toLocaleString()} deaths`,
+                                footer: (items) => (items.length && items[0].datasetIndex === 0 && isPrelim(parseInt(items[0].label, 10))) ? PRELIM_NOTE : ''
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { grid: { color: '#334155', lineWidth: 0.5 }, ticks: { color: '#94a3b8', font: { size: 11 } } },
+                        y: { beginAtZero: true, grid: { color: '#334155', lineWidth: 0.5 },
+                             ticks: { color: '#94a3b8', font: { size: 11 }, callback: (val) => val.toLocaleString() } }
+                    },
+                    elements: { line: { borderJoinStyle: 'round' }, point: { hitRadius: 12 } }
+                }
+            });
+        }
+
+        function resetSliders() {
+            byId('migration-slider').value = 0;
+            byId('enforcement-slider').value = 0;
+            byId('year-slider').value = DEFAULT_HORIZON_YEARS;
+            updateUI();
+        }
+
+        // The "How it works" (ⓘ) buttons toggle the note: click opens (and scrolls to it), click again hides.
+        function setNoteOpen(open) {
+            const note = byId('note');
+            if (!note) return;
+            note.hidden = !open;
+            const label = open ? 'Hide how the model works' : 'Show how the model works';
+            document.querySelectorAll('[data-note-toggle]').forEach(btn => {
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                btn.setAttribute('aria-label', label);
+                btn.title = label;
+                btn.classList.toggle('note-toggle-active', open);
+            });
+            if (open) note.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function toggleNote() {
+            const note = byId('note');
+            if (note) setNoteOpen(note.hidden);
+        }
+
+        // NOTE on "making the page browser do multithreaded stuff":
+        // Browser JS (the main thread that does DOM updates, event handling, updateUI etc.) is SINGLE-THREADED by design.
+        // To get real parallel work, use Web Workers (e.g. a Blob-URL worker running project()/policyRate() and posting
+        // the arrays back; DOM/chart updates must stay on the main thread). For this model (max 10 years) it's overkill -
+        // the work is microseconds. If you add Monte-Carlo sims etc., a worker keeps the UI responsive.
+
+        // ---- Copy summary --------------------------------------------------------------------
+        function describeRateLine(multiplier, d) {
+            const pct = `${fmtPct(multiplier)}/yr`;
+            if (d.kind === 'double') return `${pct} → time to double ${d.years.toFixed(2)} years`;
+            if (d.kind === 'half') return `${pct} → half-life ${d.years.toFixed(2)} years`;
+            return `${pct} → roughly stable (doubling time / half-life beyond ~${STABLE_HORIZON_YEARS} years)`;
+        }
+
+        function buildSummaryText() {
+            const r = window.currentResults;
+            const t = SERIES_TEXT[modelState.series] || SERIES_TEXT.total;
+            const periodLabel = modelState.periodKey === '2018-2025' ? '2018–2025 (all data years; 2025 preliminary)' : '2019–2023 (high-growth years)';
+            const savedLine = r.livesSaved >= 0
+                ? `Lives potentially saved (cumulative ${LAST_OBSERVED_YEAR + 1}–${r.finalYear}): ${r.livesSaved.toLocaleString()}`
+                : `Additional deaths vs. baseline (cumulative ${LAST_OBSERVED_YEAR + 1}–${r.finalYear}): ${Math.abs(r.livesSaved).toLocaleString()}`;
+            return `Washington State Overdose Policy Model — results
+
+Series: ${t.desc} (Washington State residents)
+Growth-rate period: ${periodLabel}
+Projection: ${LAST_OBSERVED_YEAR + 1}–${r.finalYear} (${r.years} years), starting from the actual ${LAST_OBSERVED_YEAR}${isPrelim(LAST_OBSERVED_YEAR) ? ' (preliminary)' : ''} count of ${modelState.lastActual.toLocaleString()}
+
+Deaths in ${r.finalYear}:
+• Baseline (no change): ${r.baselineFinal.toLocaleString()}
+• With policies applied: ${r.policyFinal.toLocaleString()}
+${savedLine}
+Est. ${LAST_OBSERVED_YEAR + 1} with policies: ${r.est2025.toLocaleString()}
+
+Policy settings:
+• Migration discouragement: ${r.migrationPct}%
+• Criminalization / enforcement: ${r.enforcementPct}%
+
+Annual growth rate:
+• Baseline: ${describeRateLine(r.baselineMultiplier, r.baselineTd)}
+• With policies: ${describeRateLine(r.policyMultiplier, r.policyTd)}
+
+Note: a very long doubling time or half-life means the system is roughly in homeostasis (neither significantly growing nor decaying); the political time horizon is typically not useful beyond ~${STABLE_HORIZON_YEARS} years. This is a simplified illustrative model; the policy effects are assumptions, not measured effects.
+
+Data: Washington State Department of Health, confirmed overdose deaths among WA residents, 2018–2025 (DOH data dated Oct. 12, 2026; 2024 = 3,145 revised; 2025 preliminary = 2,932, sum of quarterly counts; 2025 heroin from DOH's Mar 16, 2026 table).
+Generated: ${new Date().toLocaleDateString()}`;
+        }
+
+        function legacyCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.top = '-1000px';
+            document.body.appendChild(ta);
+            ta.select();
+            let ok = false;
+            try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+            document.body.removeChild(ta);
+            return ok;
+        }
+
+        function copyText(text) {
+            // navigator.clipboard only exists in secure contexts (https, localhost, file://);
+            // fall back to the older execCommand path elsewhere (e.g. plain http on a LAN).
+            if (navigator.clipboard && window.isSecureContext) {
+                return navigator.clipboard.writeText(text).catch(() => {
+                    if (!legacyCopy(text)) throw new Error('copy failed');
+                });
+            }
+            return legacyCopy(text) ? Promise.resolve() : Promise.reject(new Error('copy failed'));
+        }
+
+        let copyResetTimer = null;
+        function copyResults() {
+            if (!window.currentResults) return;
+            const text = buildSummaryText();
+            const label = byId('copy-label');
+            copyText(text).then(() => {
+                if (!label) return;
+                label.textContent = '✓ Copied!';
+                clearTimeout(copyResetTimer);
+                copyResetTimer = setTimeout(() => { label.textContent = 'Copy summary'; }, 1800);
+            }).catch(() => {
+                alert('Copying is blocked in this browser. Select and copy this text:\n\n' + text);
+            });
+        }
+
+        // ---- Wiring ------------------------------------------------------------------------
+        function setupListeners() {
+            ['migration-slider', 'enforcement-slider', 'year-slider'].forEach(id => {
+                byId(id).addEventListener('input', updateUI);
+            });
+            document.querySelectorAll('input[name="base-period"], input[name="deaths-series"]').forEach(radio => {
+                radio.addEventListener('change', () => { if (applyBasePeriod()) updateUI(); });
+            });
+
+            // Keyboard: R resets (also while a slider/radio has focus), Esc closes the note.
+            // Ignore Ctrl/Cmd/Alt combinations so browser shortcuts (Ctrl+R / Cmd+R reload) are untouched.
+            document.addEventListener('keydown', function (e) {
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
+                const a = document.activeElement;
+                const tag = a ? a.tagName : '';
+                const typing = a && (a.isContentEditable || tag === 'TEXTAREA' || tag === 'SELECT' ||
+                    (tag === 'INPUT' && !['range', 'radio', 'checkbox', 'button'].includes(a.type)));
+                if ((e.key === 'r' || e.key === 'R') && !typing) {
+                    e.preventDefault();
+                    resetSliders();
+                }
+                if (e.key === 'Escape' && byId('note') && !byId('note').hidden) setNoteOpen(false);
+            });
+        }
+
+        function initialize() {
+            const deps = checkDependencies();
+            if (deps.fatal) return;
+            if (deps.chartMissing) {
+                chartAvailable = false;
+                byId('projection-chart').classList.add('hidden');
+                byId('chart-unavailable').classList.remove('hidden');
+            }
+            if (!applyBasePeriod()) return;
+            populateObservedTable();
+            setupListeners();
+            updateUI();     // single initial render
+            console.log('%c[Model] Interactive Washington overdose policy simulator initialized', 'color:#64748b');
+        }
+
+        // Boot (script is at the end of <body>, so the DOM is already parsed)
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize);
+        else initialize();
+    </script>
+</body>
+</html>
