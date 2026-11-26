@@ -33,5 +33,5 @@ The model is **AGPL-3.0-or-later** (see `LICENSE.txt`). Chart.js and Tailwind CS
 ## Acknowledgments (brief)
 
 - Math ported from internal C# campaign utilities (T_d / projection helpers).
-- Paid for by Friends of Jillian England (see the visible legal footer in the model and on the campaign site).
+- © 2026 Jillian England. Licensed under the GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later); see the visible legal footer in the model and `LICENSE.txt`.
 - The inlined Tailwind v3 + local Chart.js approach was chosen after CDN versions produced tracking blocks and graphics regressions for some visitors.

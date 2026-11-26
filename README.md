@@ -179,7 +179,7 @@ Upload the whole folder (all the files listed above) to any web server, then emb
 
 ## License
 
-Copyright (C) 2026 Friends of Jillian England (AKA FOJE).
+Copyright (C) 2026 Jillian England.
 
 The model (the HTML page, `math-utils.js`, `overdose-data.js` and the images) is licensed under the **GNU Affero General Public License v3.0 or later** (SPDX: `AGPL-3.0-or-later`). See `LICENSE.txt` and <https://www.gnu.org/licenses/agpl-3.0.html>. If you run a modified version as a public web service, you must make the complete corresponding source available to its users; this bundle is that source.
 
@@ -188,7 +188,7 @@ Third-party components (their own licenses apply):
 - **Chart.js 4.5.1** (`chart.umd.min.js`), © Chart.js Contributors, **MIT License**. The notice is kept at the top of the file. <https://www.chartjs.org>
 - **Tailwind CSS v3.4.17** (CSS inlined in the `.html`), © Tailwind Labs, **MIT License**. The notice is kept in the inlined CSS. <https://tailwindcss.com>
 
-Paid for by Friends of Jillian England, the committee to elect Jillian England for Washington State Senate, Legislative District 36. P.O. Box 30064, Seattle, WA 98113.
+© 2026 Jillian England. Licensed under the GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later). See `LICENSE.txt`.
 
 ---
 
