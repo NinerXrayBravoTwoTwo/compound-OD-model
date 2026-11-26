@@ -9,8 +9,8 @@ This file is retained for maintainers. **Users and distributors should read `REA
   - `chart.umd.min.js` (Chart.js 4.5.1, MIT): the chart. Without it the numbers and table still work.
   - `math-utils.js`: `MathUtils.Td` / `DblPredict` (doubling time / half-life), ported from the author's C# utilities.
   - `overdose-data.js`: observed 2018–2025 WA DOH data (2025 preliminary) plus helpers.
-- Images and documents referenced by the page: `time2doubleequations-dark.gif`, `Washington_Overdose_death_2018-25.gif` (verification graphic: 2018–2024 DOH counts + 2025 compounding estimate, linear and ln charts). The old 2018-24 GIF/PDF (May 2025 preliminary table) were removed in October 2026.
-- Also bundled: `LICENSE.txt`, `README.md`, this file, and the `seattle_overdose_model.html` redirect stub. That's **10 files** in the standalone bundle: **4 needed to run** (`.html` + 3 `.js`), 2 images shown in the page, 3 docs/legal, and the redirect stub.
+- Images and documents referenced by the page: `time2doubleequations-dark.gif`, `Washington_Overdose_death_2018-25.gif` (verification graphic: 2018–2024 DOH counts + 2025 compounding estimate, linear and ln charts). Also bundled, but not referenced by the page: `Washington_Overdose_death_2018-25.png` (higher-resolution PNG) and `Washington_Overdose_death_2018-25.pdf` (printable PDF). The old 2018-24 GIF/PDF (May 2025 preliminary table) were removed in October 2026.
+- Also bundled: `LICENSE.txt`, `README.md`, this file, and the `seattle_overdose_model.html` redirect stub. That's **12 files** in the standalone bundle: **4 needed to run** (`.html` + 3 `.js`), 2 images shown in the page, 2 additional graphic formats (PNG and PDF) not needed to run, 3 docs/legal, and the redirect stub.
 - All asset references in the HTML are bare relative file names (no leading `/`), so the bundle is portable when the files travel together.
 - Model constants (lever shares 0.65 / 0.35, maximum shift 1.5, floor 0.5×/yr, stable threshold 12 years, default horizon 6 years; slider max 10 is in the `#year-slider` markup) are at the top of the main `<script>` and documented in `README.md` → "What the model does".
 

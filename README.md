@@ -220,6 +220,7 @@ New-Item -ItemType Directory -Force dist | Out-Null
 Compress-Archive -Force -DestinationPath dist\washington-overdose-model-standalone.zip -LiteralPath `
     washington_overdose_model.html, seattle_overdose_model.html, chart.umd.min.js, math-utils.js, overdose-data.js, `
     time2doubleequations-dark.gif, Washington_Overdose_death_2018-25.gif, `
+    Washington_Overdose_death_2018-25.png, Washington_Overdose_death_2018-25.pdf, `
     LICENSE.txt, README.md, model-assets.md
 ```
 
@@ -227,6 +228,7 @@ Compress-Archive -Force -DestinationPath dist\washington-overdose-model-standalo
 mkdir -p dist && rm -f dist/washington-overdose-model-standalone.*
 FILES="washington_overdose_model.html seattle_overdose_model.html chart.umd.min.js math-utils.js overdose-data.js \
   time2doubleequations-dark.gif Washington_Overdose_death_2018-25.gif \
+  Washington_Overdose_death_2018-25.png Washington_Overdose_death_2018-25.pdf \
   LICENSE.txt README.md model-assets.md"
 tar -czf dist/washington-overdose-model-standalone.tar.gz $FILES
 zip -9 -X dist/washington-overdose-model-standalone.zip $FILES     # or: 7z a -tzip dist/washington-overdose-model-standalone.zip $FILES
