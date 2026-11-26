@@ -2,10 +2,9 @@
 
 A standalone, interactive web page that projects Washington State overdose deaths forward using the observed compounding (exponential) growth rate, with two policy sliders — *discourage addict migration / inflow* and *criminalize use & distribution* — that bend the curve.
 
-It is the postscript model for the FOJE issues paper **"The Compounding Homelessness, Addiction & Overdose Problem in Seattle."** The data are statewide (Washington State residents), not Seattle-only, so the page is named `washington_overdose_model.html`. It was previously `seattle_overdose_model.html`; that name is now a small redirect page (online and in the download), so old links and bookmarks keep working.
+The data are statewide (Washington State residents), not Seattle-only, so the page is named `washington_overdose_model.html`. It was previously `seattle_overdose_model.html`; that name is now a small redirect page in the download, so old links and bookmarks keep working.
 
-- **Online version (best for phones and tablets):** <https://jillianengland.com/models/compounding-crisis/washington_overdose_model.html>
-- **Issues paper:** <https://jillianengland.com/issues/compounding-crisis>
+- **Source and downloads:** <https://github.com/NinerXrayBravoTwoTwo/compound-OD-model>
 
 ---
 
@@ -47,14 +46,14 @@ The page needs the other files next to it (`chart.umd.min.js`, `math-utils.js`, 
 
 ### Phones and tablets (iPhone, iPad, Android)
 
-Use the **online version** linked at the top. Phones and tablets don't reliably let a downloaded web page load the other files in its folder, so the downloaded bundle is meant for computers.
+Phones and tablets don't reliably let a downloaded web page load the other files in its folder, so the downloaded bundle is meant for computers. To use the model on a phone or tablet, you need a hosted copy (see the repository link at the top).
 
 ### Using the model
 
 - **Growth rate period:** 2019–2023 (the high-growth years) or 2018–2025 (all data years, the default; 2025 is preliminary). Sets the natural, no-policy growth rate.
 - **OD cause:** total, fentanyl, opiates, stimulants (DOH psychostimulants category, mostly methamphetamine; excludes cocaine), oxy (prescription opioids), heroin, cocaine, or alcohol poisoning (DOH "Alcohol Poisoning" category, ICD-10 X45/X65/Y15: acute alcohol poisoning only, not alcohol-related crashes, falls, or liver disease; not part of DOH's "Any drug" total). Alcohol is on the model page only, not the verification graphic.
 - **Sliders:** migration/inflow discouragement, criminalization/enforcement, and how many years past 2025 to project: **4 by default (2026–2029)**, from 1 to a maximum of 10 (2035). Four years stays within about one doubling of the 2018–2025 trend; beyond a few years the lines show what pure compounding implies, not a forecast.
-- **Keyboard:** arrow keys move a focused slider; **R** resets the sliders (policies to 0%, horizon to 4 years); **Esc** hides the "How the Model Works" section, and the **ⓘ How it works** buttons bring it back.
+- **Keyboard:** arrow keys move a focused slider; **R** resets the sliders (policies to 0%, horizon to 4 years); the **ⓘ How it works** buttons toggle the "How the Model Works" panel, which starts closed; **Esc** closes it.
 - **Copy summary** copies a plain-text report of the current settings and results.
 
 ---
@@ -66,15 +65,17 @@ Use the **online version** linked at the top. Phones and tablets don't reliably 
 | `washington_overdose_model.html`        |         **yes**         | The page: layout, styles (Tailwind CSS v3, inlined) and the model logic. Open this file.                                                                       |
 | `seattle_overdose_model.html`           |           no            | Redirect to `washington_overdose_model.html` (the model's old name), so old links and bookmarks still work.                                                    |
 | `chart.umd.min.js`                      | **yes** (for the chart) | Chart.js 4.5.1, a local copy, so the chart works offline. Without it, the numbers and table still work.                                                        |
-| `math-utils.js`                         |         **yes**         | Doubling-time / half-life math (`MathUtils.Td`, `MathUtils.DblPredict`), ported from the campaign's C# utilities.                                              |
+| `math-utils.js`                         |         **yes**         | Doubling-time / half-life math (`MathUtils.Td`, `MathUtils.DblPredict`), ported from the author's C# utilities.                                              |
 | `overdose-data.js`                      |         **yes**         | The observed 2018–2025 data (2025 preliminary) and helper functions.                                                                                                              |
 | `time2doubleequations-dark.gif`         |      shown in page      | Diagram of the doubling-time and half-life equations.                                                                                                          |
 | `Washington_Overdose_death_2018-25.gif` |      shown in page      | Verification graphic: the 2018–2024 DOH counts by substance plus a 2025 compounding estimate (not DOH data), with a linear chart and a natural-log (ln) chart. |
+| `Washington_Overdose_death_2018-25.png` |           no            | Verification graphic, higher-resolution PNG; not needed to run.                                                                                                |
+| `Washington_Overdose_death_2018-25.pdf` |           no            | Verification graphic, printable PDF; not needed to run.                                                                                                        |
 | `LICENSE.txt`                           |          legal          | Full text of the GNU Affero General Public License v3.0.                                                                                                       |
 | `README.md`                             |          docs           | This file.                                                                                                                                                     |
 | `model-assets.md`                       |          docs           | Short notes for maintainers.                                                                                                                                   |
 
-Total size is about 730 KB unzipped (about 470 KB zipped).
+Total size is about 1.8 MB unzipped (about 1.5 MB zipped).
 
 ---
 
@@ -84,9 +85,9 @@ Total size is about 730 KB unzipped (about 470 KB zipped).
 | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Red banner **"Some model files could not be loaded: …"**                                    | The page can't find its supporting files. Extract the whole zip first (don't open the page from inside the zip), keep all files in **one folder**, and open the `.html` from that folder.                                                                          |
 | Banner says only `chart.umd.min.js` is missing; there's no chart, but the numbers work      | Put `chart.umd.min.js` back next to the `.html` (re-download if needed).                                                                                                                                                                                           |
-| A message says the model **needs JavaScript**, or nothing changes when you move the sliders | JavaScript is blocked for this page. Script-blocking extensions (NoScript, uBlock Origin's "block scripts" mode, etc.) or a work/school browser policy can block it for files opened from disk. Allow scripts for this page and reload, or use the online version. |
+| A message says the model **needs JavaScript**, or nothing changes when you move the sliders | JavaScript is blocked for this page. Script-blocking extensions (NoScript, uBlock Origin's "block scripts" mode, etc.) or a work/school browser policy can block it for files opened from disk. Allow scripts for this page and reload, or open a hosted copy if you have one. |
 | **Copy summary** shows a pop-up with the text instead of copying                            | The browser blocked clipboard access (some browsers do over plain `http://`). Select and copy the text from the pop-up, or open the file directly from disk or over `https://`.                                                                                    |
-| Pictures or the PDF link don't work                                                         | The `.gif` / `.pdf` files aren't next to the `.html`. Re-extract the zip.                                                                                                                                                                                          |
+| Pictures don't show                                                                        | The `.gif` files aren't next to the `.html`. Re-extract the zip.                                                                                                                                                                                                   |
 | The page opened in a text editor or shows code                                              | Right-click the `.html` → **Open with** → a web browser.                                                                                                                                                                                                           |
 | Fonts look slightly different on different computers                                        | Normal. The page uses each computer's built-in system fonts and downloads nothing.                                                                                                                                                                                 |
 
@@ -119,15 +120,15 @@ This is a simplified illustrative model. The policy effects are **assumptions ch
    `r_policy = r0 − |r0| × (a × enforcement + b × migration)`, with each slider from 0 to 1
 
    | Constant                       | Value                   | Meaning                                                                                                                                       |
-| ------------------------------ | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Lethality / distribution share | 0.65                    | Share of growth attributed to lethality + distribution among existing users (enforcement lever)                                               |
-| Inflow / migration share       | 0.35                    | Share of growth attributed to inflow of new users (migration lever)                                                                           |
-| Maximum shift                  | 1.5                     | Both sliders at 100% shift the rate by 1.5 × \|r0\                                                                                            |
-| **a** (enforcement)            | **0.975**               | 0.65 × 1.5                                                                                                                                    |
-| **b** (migration)              | **0.525**               | 0.35 × 1.5                                                                                                                                    |
-| Floor                          | 0.5× per year           | The policy line never falls more than 50% a year, unless the baseline already falls faster. The policy rate is never above the baseline rate. |
-| "Stable" threshold             | 12 years                | A doubling time or half-life longer than 12 years (the political horizon) is shown as *stable / homeostasis*.                                 |
-| Projection horizon             | 4 years default, 10 max | Default 2026–2029; the slider stops at 2035 because long runs of pure compounding stop being meaningful.                                      |
+   | ------------------------------ | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+   | Lethality / distribution share | 0.65                    | Share of growth attributed to lethality + distribution among existing users (enforcement lever)                                               |
+   | Inflow / migration share       | 0.35                    | Share of growth attributed to inflow of new users (migration lever)                                                                           |
+   | Maximum shift                  | 1.5                     | Both sliders at 100% shift the rate by 1.5 × \|r0\|                                                                                           |
+   | **a** (enforcement)            | **0.975**               | 0.65 × 1.5                                                                                                                                    |
+   | **b** (migration)              | **0.525**               | 0.35 × 1.5                                                                                                                                    |
+   | Floor                          | 0.5× per year           | The policy line never falls more than 50% a year, unless the baseline already falls faster. The policy rate is never above the baseline rate. |
+   | "Stable" threshold             | 12 years                | A doubling time or half-life longer than 12 years (the political horizon) is shown as *stable / homeostasis*.                                 |
+   | Projection horizon             | 4 years default, 10 max | Default 2026–2029; the slider stops at 2035 because long runs of pure compounding stop being meaningful.                                      |
 
    With both sliders at 100%, a growing series reverses into a decline half as fast as it grew: a doubling time of T years becomes a half-life of 2T years. For an already-declining series (for example, heroin), the sliders make the decline faster. For a nearly flat series (for example, oxy over 2018–2025), the sliders have little effect, because they scale with the observed trend.
 4. **Lives saved** is the cumulative sum of (baseline − policy) deaths over the projected years, 2026 through the horizon year.
@@ -194,11 +195,11 @@ Third-party components (their own licenses apply):
 
 ## For maintainers: editing and rebuilding the bundle
 
-The source of truth is the folder `FOJE/wwwroot/models/compounding-crisis/` in the FOJE site repository. The live site serves these files statically at `/models/compounding-crisis/`.
+The source of truth is this GitHub repository: <https://github.com/NinerXrayBravoTwoTwo/compound-OD-model>.
 
 - Edit `washington_overdose_model.html` (page and model logic), `overdose-data.js` (data) or `math-utils.js` (math) in any text editor. The model constants are at the top of the main `<script>` in the `.html`; if you change them, update the "What the model does" section above.
 - The inlined Tailwind CSS is a purged build. If you use a utility class that isn't defined in the `<style>` block, add it (or regenerate the CSS), or it will silently do nothing.
-- After editing, test by opening the `.html` directly from disk **and** through the site iframe. Then rebuild the archives.
+- After editing, test by opening the `.html` directly from disk and, if you embed it, inside an iframe. Then rebuild the archives.
 
 **Rebuild with the script** (run from the model folder; the archives go to `dist/`):
 
@@ -219,6 +220,7 @@ New-Item -ItemType Directory -Force dist | Out-Null
 Compress-Archive -Force -DestinationPath dist\washington-overdose-model-standalone.zip -LiteralPath `
     washington_overdose_model.html, seattle_overdose_model.html, chart.umd.min.js, math-utils.js, overdose-data.js, `
     time2doubleequations-dark.gif, Washington_Overdose_death_2018-25.gif, `
+    Washington_Overdose_death_2018-25.png, Washington_Overdose_death_2018-25.pdf, `
     LICENSE.txt, README.md, model-assets.md
 ```
 
@@ -226,12 +228,13 @@ Compress-Archive -Force -DestinationPath dist\washington-overdose-model-standalo
 mkdir -p dist && rm -f dist/washington-overdose-model-standalone.*
 FILES="washington_overdose_model.html seattle_overdose_model.html chart.umd.min.js math-utils.js overdose-data.js \
   time2doubleequations-dark.gif Washington_Overdose_death_2018-25.gif \
+  Washington_Overdose_death_2018-25.png Washington_Overdose_death_2018-25.pdf \
   LICENSE.txt README.md model-assets.md"
 tar -czf dist/washington-overdose-model-standalone.tar.gz $FILES
 zip -9 -X dist/washington-overdose-model-standalone.zip $FILES     # or: 7z a -tzip dist/washington-overdose-model-standalone.zip $FILES
 ```
 
-The archives in `dist/` are git-ignored (`**/*-standalone.zip`, `**/*-standalone.tar.gz`). Commit only the source files, and deploy `dist/` with the site so the download links work.
+The archives in `dist/` are git-ignored (`**/*-standalone.zip`, `**/*-standalone.tar.gz`). Commit only the source files, and publish the `dist/` archives wherever you host the download.
 
 ---
 
