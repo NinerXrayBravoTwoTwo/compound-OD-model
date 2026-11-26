@@ -18,7 +18,7 @@ This file is retained for maintainers. **Users and distributors should read `REA
 
 The source of truth is this GitHub repository: <https://github.com/NinerXrayBravoTwoTwo/compound-OD-model>.
 
-The download archives are built into `dist/` by `sbin/regen-dist.sh` / `sbin/regen-dist.ps1`. The scripts also copy the archives to the legacy names `dist/seattle-overdose-model-standalone.*` so old download links keep working. They are git-ignored, so publish the `dist/` archives wherever you host the download.
+The download archives are built into `dist/` by `sbin/regen-dist.sh` / `sbin/regen-dist.ps1`. The scripts also copy the archives to the legacy names `dist/seattle-overdose-model-standalone.*`. They are git-ignored. Attach `dist/washington-overdose-model-standalone.zip` and `.tar.gz` to a dated GitHub Release (see `README.md`); the latest is at <https://github.com/NinerXrayBravoTwoTwo/compound-OD-model/releases/latest>.
 
 ## Integration
 

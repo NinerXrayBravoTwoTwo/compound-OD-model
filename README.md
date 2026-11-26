@@ -4,7 +4,8 @@ A standalone, interactive web page that projects Washington State overdose death
 
 The data are statewide (Washington State residents), not Seattle-only, so the page is named `washington_overdose_model.html`. It was previously `seattle_overdose_model.html`; that name is now a small redirect page in the download, so old links and bookmarks keep working.
 
-- **Source and downloads:** <https://github.com/NinerXrayBravoTwoTwo/compound-OD-model>
+- **Source:** <https://github.com/NinerXrayBravoTwoTwo/compound-OD-model>
+- **Downloads:** the standalone `.zip` and `.tar.gz` are attached to each release: <https://github.com/NinerXrayBravoTwoTwo/compound-OD-model/releases/latest>
 
 ---
 
@@ -234,7 +235,15 @@ tar -czf dist/washington-overdose-model-standalone.tar.gz $FILES
 zip -9 -X dist/washington-overdose-model-standalone.zip $FILES     # or: 7z a -tzip dist/washington-overdose-model-standalone.zip $FILES
 ```
 
-The archives in `dist/` are git-ignored (`**/*-standalone.zip`, `**/*-standalone.tar.gz`). Commit only the source files, and publish the `dist/` archives wherever you host the download.
+The archives in `dist/` are git-ignored (`**/*-standalone.zip`, `**/*-standalone.tar.gz`). Commit only the source files. After running `sbin/regen-dist.sh` (Linux, macOS, WSL, Git Bash) or `sbin\regen-dist.ps1` (Windows), publish `dist/washington-overdose-model-standalone.zip` and `dist/washington-overdose-model-standalone.tar.gz` as a dated GitHub Release (tag like `v2026.11.26`). Draft the release on GitHub and attach both archives, or:
+
+```bash
+gh release create vYYYY.MM.DD \
+  dist/washington-overdose-model-standalone.zip \
+  dist/washington-overdose-model-standalone.tar.gz \
+  --title "vYYYY.MM.DD" \
+  --notes "Standalone model archives."
+```
 
 ---
 
